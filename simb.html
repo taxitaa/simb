@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIM BENCANA - Sistem Informasi Manajemen Bencana Tsunami</title>
-    
+
     <!-- Font Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    
+
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    />
+
     <!-- Leaflet JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f5f7fa;
-            color: #333;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f7fa;
+        color: #333;
+      }
 
+<<<<<<< HEAD
         /* Header Styles */
         .header {
             background: linear-gradient(135deg, #648DB3 0%, #5a7fa0 100%);
@@ -41,77 +48,91 @@
             top: 50px;
             z-index: 1000;
         }
+=======
+      /* Header Styles */
+      .header {
+        background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+        color: white;
+        padding: 20px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+>>>>>>> 5334d4974dcb2bc10857f3c853139d6f076077d5
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ECEFCA;
-        }
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: #ecefca;
+      }
 
-        .header-title h1 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
+      .header-title h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
 
-        .header-title p {
-            font-size: 12px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+      }
 
-        .header-right {
-            display: flex;
-            gap: 15px;
-        }
+      .header-right {
+        display: flex;
+        gap: 15px;
+      }
 
-        .btn-login {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+      .btn-login {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-        .btn-pimpinan {
-            background: #2c5282;
-            color: white;
-        }
+      .btn-pimpinan {
+        background: #2c5282;
+        color: white;
+      }
 
-        .btn-pimpinan:hover {
-            background: #1e3a5f;
-            transform: translateY(-2px);
-        }
+      .btn-pimpinan:hover {
+        background: #1e3a5f;
+        transform: translateY(-2px);
+      }
 
-        .btn-admin {
-            background: #ECEFCA;
-            color: #648DB3;
-        }
+      .btn-admin {
+        background: #ecefca;
+        color: #648db3;
+      }
 
-        .btn-admin:hover {
-            background: #dde0b8;
-            transform: translateY(-2px);
-        }
+      .btn-admin:hover {
+        background: #dde0b8;
+        transform: translateY(-2px);
+      }
 
+<<<<<<< HEAD
         /* Stats Bar */
 .stats-bar {
     background: #ffffff;
@@ -160,9 +181,532 @@
     color: #777;
 }
 
+=======
+      /* Stats Bar */
+      .stats-bar {
+        background: white;
+        padding: 15px 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        margin-top: 95px;
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+      }
 
-        /* Sidebar */
+      .stats-content {
+        display: flex;
+        gap: 40px;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding-left: 280px;
+      }
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #648db3, #94b4c1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+      }
+
+      .stat-text h3 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #648db3;
+      }
+
+      .stat-text p {
+        font-size: 12px;
+        color: #666;
+      }
+>>>>>>> 5334d4974dcb2bc10857f3c853139d6f076077d5
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 95px;
+        width: 260px;
+        height: calc(100vh - 95px);
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        padding: 20px 0;
+        overflow-y: auto;
+        z-index: 998;
+        transition: all 0.3s;
+      }
+
+      .sidebar.collapsed {
+        width: 80px;
+      }
+
+      .menu-toggle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #648db3;
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s;
+      }
+
+      .menu-toggle:hover {
+        background: #5a7fa0;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 25px;
+        color: #555;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-left: 4px solid transparent;
+      }
+
+      .menu-item:hover {
+        background: #f0f4f8;
+        color: #648db3;
+      }
+
+      .menu-item.active {
+        background: linear-gradient(
+          90deg,
+          #ecefca 0%,
+          rgba(236, 239, 202, 0.3) 100%
+        );
+        color: #648db3;
+        border-left-color: #648db3;
+        font-weight: 600;
+      }
+
+      .menu-icon {
+        font-size: 22px;
+        min-width: 30px;
+        text-align: center;
+      }
+
+      .menu-text {
+        font-size: 15px;
+        white-space: nowrap;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-left: 260px;
+        margin-top: 160px;
+        padding: 30px;
+        min-height: calc(100vh - 160px);
+        transition: all 0.3s;
+      }
+
+      .main-content.expanded {
+        margin-left: 80px;
+      }
+
+      /* Banner */
+      .banner {
+        background: linear-gradient(135deg, #648db3 0%, #94b4c1 100%);
+        color: white;
+        padding: 60px 40px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 20px rgba(100, 141, 179, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .banner::before {
+        content: "🌊";
+        position: absolute;
+        font-size: 200px;
+        right: -50px;
+        bottom: -50px;
+        opacity: 0.1;
+      }
+
+      .banner h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      .banner p {
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        max-width: 800px;
+      }
+
+      .banner-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 15px;
+      }
+
+      .btn-primary {
+        background: #ecefca;
+        color: #648db3;
+      }
+
+      .btn-primary:hover {
+        background: #dde0b8;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(236, 239, 202, 0.4);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: #648db3;
+        transform: translateY(-3px);
+      }
+
+      /* Cards */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+        transition: all 0.3s;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        transform: translateY(-5px);
+      }
+
+      .card-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #648db3;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card-title-icon {
+        font-size: 28px;
+      }
+
+      /* Grid Layout */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 25px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      /* Timeline */
+      .timeline-item {
+        background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid #648db3;
+        margin-bottom: 20px;
+        transition: all 0.3s;
+      }
+
+      .timeline-item:hover {
+        border-left-color: #ecefca;
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .timeline-year {
+        font-size: 18px;
+        font-weight: 700;
+        color: #648db3;
+        margin-bottom: 8px;
+      }
+
+      .timeline-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .timeline-desc {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      /* Icon Cards */
+      .icon-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.3s;
+        border: 2px solid #f0f0f0;
+      }
+
+      .icon-card:hover {
+        border-color: #648db3;
+        box-shadow: 0 6px 20px rgba(100, 141, 179, 0.2);
+        transform: translateY(-5px);
+      }
+
+      .icon-card-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+      }
+
+      .icon-card-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #648db3;
+        margin-bottom: 10px;
+      }
+
+      .icon-card-desc {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      /* Mitigasi Cards */
+      .mitigation-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        border-top: 4px solid #648db3;
+      }
+
+      .mitigation-card.before {
+        border-top-color: #ecefca;
+        background: linear-gradient(135deg, #ecefca20 0%, white 100%);
+      }
+
+      .mitigation-card.during {
+        border-top-color: #94b4c1;
+        background: linear-gradient(135deg, #94b4c120 0%, white 100%);
+      }
+
+      .mitigation-card.after {
+        border-top-color: #648db3;
+        background: linear-gradient(135deg, #648db320 0%, white 100%);
+      }
+
+      .mitigation-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mitigation-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .mitigation-list li {
+        padding: 10px 0;
+        padding-left: 30px;
+        position: relative;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .mitigation-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #648db3;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      /* Video Cards */
+      .video-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s;
+      }
+
+      .video-card:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+      }
+
+      .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+      }
+
+      .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .video-info {
+        padding: 20px;
+      }
+
+      .video-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #648db3;
+        margin-bottom: 8px;
+      }
+
+      .video-desc {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      /* Map Container */
+      #map {
+        height: 500px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Stats Cards */
+      .stats-card {
+        background: linear-gradient(135deg, #648db3 0%, #94b4c1 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(100, 141, 179, 0.3);
+      }
+
+      .stats-number {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .stats-label {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      /* Footer */
+      .footer {
+        background: #2c3e50;
+        color: white;
+        padding: 30px;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-logos {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-logo {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+      }
+
+      .footer-text {
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .footer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .btn-footer {
+        padding: 8px 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 13px;
+      }
+
+      .btn-footer:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
         .sidebar {
+<<<<<<< HEAD
             position: fixed;
             left: 0;
             top: 145px;
@@ -174,745 +718,368 @@
             overflow-y: auto;
             z-index: 998;
             transition: all 0.3s;
+=======
+          transform: translateX(-100%);
+>>>>>>> 5334d4974dcb2bc10857f3c853139d6f076077d5
         }
 
-        .sidebar.collapsed {
-            width: 80px;
+        .sidebar.mobile-open {
+          transform: translateX(0);
         }
 
-        .menu-toggle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #648DB3;
-            color: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s;
-        }
-
-        .menu-toggle:hover {
-            background: #5a7fa0;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 25px;
-            color: #555;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border-left: 4px solid transparent;
-        }
-
-        .menu-item:hover {
-            background: #f0f4f8;
-            color: #648DB3;
-        }
-
-        .menu-item.active {
-            background: linear-gradient(90deg, #ECEFCA 0%, rgba(236,239,202,0.3) 100%);
-            color: #648DB3;
-            border-left-color: #648DB3;
-            font-weight: 600;
-        }
-
-        .menu-icon {
-            font-size: 22px;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .menu-text {
-            font-size: 15px;
-            white-space: nowrap;
-        }
-
-        .sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        /* Main Content */
         .main-content {
+<<<<<<< HEAD
             margin-left: 260px;
             margin-top: 210px;
             padding: 30px;
             min-height: calc(100vh - 160px);
             transition: all 0.3s;
+=======
+          margin-left: 0;
+>>>>>>> 5334d4974dcb2bc10857f3c853139d6f076077d5
         }
 
         .main-content.expanded {
-            margin-left: 80px;
+          margin-left: 0;
         }
 
-        /* Banner */
-        .banner {
-            background: linear-gradient(135deg, #648DB3 0%, #94b4c1 100%);
-            color: white;
-            padding: 60px 40px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(100,141,179,0.3);
-            position: relative;
-            overflow: hidden;
+        .stats-content {
+          padding-left: 0;
+          flex-direction: column;
+          gap: 15px;
         }
 
-        .banner::before {
-            content: '🌊';
-            position: absolute;
-            font-size: 200px;
-            right: -50px;
-            bottom: -50px;
-            opacity: 0.1;
+        .header-content {
+          flex-direction: column;
+          gap: 15px;
         }
 
         .banner h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 700;
+          font-size: 28px;
         }
 
-        .banner p {
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            max-width: 800px;
-        }
-
-        .banner-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 15px;
-        }
-
-        .btn-primary {
-            background: #ECEFCA;
-            color: #648DB3;
-        }
-
-        .btn-primary:hover {
-            background: #dde0b8;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(236,239,202,0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #648DB3;
-            transform: translateY(-3px);
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-            transform: translateY(-5px);
-        }
-
-        .card-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #648DB3;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-title-icon {
-            font-size: 28px;
-        }
-
-        /* Grid Layout */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
+        .grid-2,
+        .grid-3,
         .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+          grid-template-columns: 1fr;
         }
 
-        /* Timeline */
-        .timeline-item {
-            background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid #648DB3;
-            margin-bottom: 20px;
-            transition: all 0.3s;
+        .menu-toggle-mobile {
+          display: block;
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 60px;
+          height: 60px;
+          background: #648db3;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          font-size: 24px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          z-index: 1001;
+          cursor: pointer;
         }
+      }
 
-        .timeline-item:hover {
-            border-left-color: #ECEFCA;
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      @media (min-width: 769px) {
+        .menu-toggle-mobile {
+          display: none;
         }
+      }
 
-        .timeline-year {
-            font-size: 18px;
-            font-weight: 700;
-            color: #648DB3;
-            margin-bottom: 8px;
+      /* Page Transitions */
+      .page {
+        display: none;
+        animation: fadeIn 0.4s ease-in;
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
-
-        .timeline-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        .timeline-desc {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-        }
+      /* Chart Container */
+      .chart-container {
+        position: relative;
+        height: 400px;
+        margin: 20px 0;
+      }
 
-        /* Icon Cards */
-        .icon-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 2px solid #f0f0f0;
-        }
+      /* Hide scrollbar but keep functionality */
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
 
-        .icon-card:hover {
-            border-color: #648DB3;
-            box-shadow: 0 6px 20px rgba(100,141,179,0.2);
-            transform: translateY(-5px);
-        }
+      .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
-        .icon-card-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
-
-        .icon-card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #648DB3;
-            margin-bottom: 10px;
-        }
-
-        .icon-card-desc {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        /* Mitigasi Cards */
-        .mitigation-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            border-top: 4px solid #648DB3;
-        }
-
-        .mitigation-card.before {
-            border-top-color: #ECEFCA;
-            background: linear-gradient(135deg, #ECEFCA20 0%, white 100%);
-        }
-
-        .mitigation-card.during {
-            border-top-color: #94b4c1;
-            background: linear-gradient(135deg, #94b4c120 0%, white 100%);
-        }
-
-        .mitigation-card.after {
-            border-top-color: #648DB3;
-            background: linear-gradient(135deg, #648DB320 0%, white 100%);
-        }
-
-        .mitigation-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mitigation-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .mitigation-list li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .mitigation-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #648DB3;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        /* Video Cards */
-        .video-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-        }
-
-        .video-card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transform: translateY(-5px);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .video-info {
-            padding: 20px;
-        }
-
-        .video-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #648DB3;
-            margin-bottom: 8px;
-        }
-
-        .video-desc {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        /* Map Container */
-        #map {
-            height: 500px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Stats Cards */
-        .stats-card {
-            background: linear-gradient(135deg, #648DB3 0%, #94b4c1 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(100,141,179,0.3);
-        }
-
-        .stats-number {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .stats-label {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        /* Footer */
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 30px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logos {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-logo {
-            font-size: 14px;
-            font-weight: 600;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-        }
-
-        .footer-text {
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-footer {
-            padding: 8px 20px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 13px;
-        }
-
-        .btn-footer:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-            }
-
-            .stats-content {
-                padding-left: 0;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .banner h1 {
-                font-size: 28px;
-            }
-
-            .grid-2, .grid-3, .grid-4 {
-                grid-template-columns: 1fr;
-            }
-
-            .menu-toggle-mobile {
-                display: block;
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                width: 60px;
-                height: 60px;
-                background: #648DB3;
-                color: white;
-                border: none;
-                border-radius: 50%;
-                font-size: 24px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                z-index: 1001;
-                cursor: pointer;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .menu-toggle-mobile {
-                display: none;
-            }
-        }
-
-        /* Page Transitions */
-        .page {
-            display: none;
-            animation: fadeIn 0.4s ease-in;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Chart Container */
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin: 20px 0;
-        }
-
-        /* Hide scrollbar but keep functionality */
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #648DB3;
-            border-radius: 10px;
-        }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: #648db3;
+        border-radius: 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <div class="header">
-        <div class="header-content">
-            <div class="header-left">
-                <div class="logo">🌊 SIM BENCANA</div>
-                <div class="header-title">
-                    <h1>Sistem Informasi Manajemen Bencana Tsunami</h1>
-                    <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
-                <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
-            </div>
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo">🌊 SIM BENCANA</div>
+          <div class="header-title">
+            <h1>Sistem Informasi Manajemen Bencana Tsunami</h1>
+            <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+          </div>
         </div>
+        <div class="header-right">
+          <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
+          <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+        </div>
+      </div>
     </div>
 
     <!-- Stats Bar -->
     <div class="stats-bar">
-        <div class="stats-content">
-            <div class="stat-item">
-                <div class="stat-icon">👥</div>
-                <div class="stat-text">
-                    <h3>12,547</h3>
-                    <p>Pengunjung</p>
-                </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">📰</div>
-                <div class="stat-text">
-                    <h3>287</h3>
-                    <p>Artikel</p>
-                </div>
-            </div>
+      <div class="stats-content">
+        <div class="stat-item">
+          <div class="stat-icon">👥</div>
+          <div class="stat-text">
+            <h3>12,547</h3>
+            <p>Pengunjung</p>
+          </div>
         </div>
+        <div class="stat-item">
+          <div class="stat-icon">📰</div>
+          <div class="stat-text">
+            <h3>287</h3>
+            <p>Artikel</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-        <a class="menu-item active" onclick="showPage('dashboard')">
-            <span class="menu-icon">🏠</span>
-            <span class="menu-text">Dashboard</span>
-        </a>
-        <a class="menu-item" onclick="showPage('data')">
-            <span class="menu-icon">📊</span>
-            <span class="menu-text">Data Tsunami</span>
-        </a>
-        <a class="menu-item" onclick="showPage('sejarah')">
-            <span class="menu-icon">📜</span>
-            <span class="menu-text">Sejarah Kejadian</span>
-        </a>
-        <a class="menu-item" onclick="showPage('penyebab')">
-            <span class="menu-icon">⚡</span>
-            <span class="menu-text">Penyebab</span>
-        </a>
-        <a class="menu-item" onclick="showPage('dampak')">
-            <span class="menu-icon">🚨</span>
-            <span class="menu-text">Dampak</span>
-        </a>
-        <a class="menu-item" onclick="showPage('mitigasi')">
-            <span class="menu-icon">🧭</span>
-            <span class="menu-text">Mitigasi</span>
-        </a>
-        <a class="menu-item" onclick="showPage('video')">
-            <span class="menu-icon">🎥</span>
-            <span class="menu-text">Video Edukasi</span>
-        </a>
-        <a class="menu-item" onclick="showPage('peta')">
-            <span class="menu-icon">🗺</span>
-            <span class="menu-text">Peta Sebaran</span>
-        </a>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <a class="menu-item active" onclick="showPage('dashboard')">
+        <span class="menu-icon">🏠</span>
+        <span class="menu-text">Dashboard</span>
+      </a>
+      <a class="menu-item" onclick="showPage('data')">
+        <span class="menu-icon">📊</span>
+        <span class="menu-text">Data Tsunami</span>
+      </a>
+      <a class="menu-item" onclick="showPage('sejarah')">
+        <span class="menu-icon">📜</span>
+        <span class="menu-text">Sejarah Kejadian</span>
+      </a>
+      <a class="menu-item" onclick="showPage('penyebab')">
+        <span class="menu-icon">⚡</span>
+        <span class="menu-text">Penyebab</span>
+      </a>
+      <a class="menu-item" onclick="showPage('dampak')">
+        <span class="menu-icon">🚨</span>
+        <span class="menu-text">Dampak</span>
+      </a>
+      <a class="menu-item" onclick="showPage('mitigasi')">
+        <span class="menu-icon">🧭</span>
+        <span class="menu-text">Mitigasi</span>
+      </a>
+      <a class="menu-item" onclick="showPage('video')">
+        <span class="menu-icon">🎥</span>
+        <span class="menu-text">Video Edukasi</span>
+      </a>
+      <a class="menu-item" onclick="showPage('peta')">
+        <span class="menu-icon">🗺</span>
+        <span class="menu-text">Peta Sebaran</span>
+      </a>
     </div>
 
     <!-- Mobile Menu Toggle -->
-    <button class="menu-toggle-mobile" onclick="toggleMobileSidebar()">☰</button>
+    <button class="menu-toggle-mobile" onclick="toggleMobileSidebar()">
+      ☰
+    </button>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        
-        <!-- Dashboard Page -->
-        <div class="page active" id="dashboard">
-            <div class="banner">
-                <h1>Kenali Bahaya Tsunami</h1>
-                <p>Tsunami adalah gelombang laut yang disebabkan oleh gangguan dasar laut secara vertikal dan tiba-tiba. Gangguan tersebut dapat berupa gempa bumi tektonik, letusan gunung berapi, tanah longsor bawah laut, atau jatuhnya meteor ke laut. Gelombang tsunami dapat merambat dengan kecepatan sangat tinggi hingga 500-1000 km/jam di laut dalam dan menyebabkan kerusakan masif saat mencapai daratan.</p>
-                <div class="banner-buttons">
-                    <button class="btn-primary" onclick="showPage('data')">📊 Lihat Data Tsunami</button>
-                    <button class="btn-secondary" onclick="showPage('peta')">🗺 Lihat Peta Sebaran</button>
-                </div>
-            </div>
-
-            <div class="grid-3">
-                <div class="stats-card">
-                    <div class="stats-number">47</div>
-                    <div class="stats-label">Total Kejadian Tsunami</div>
-                </div>
-                <div class="stats-card">
-                    <div class="stats-number">230K+</div>
-                    <div class="stats-label">Total Korban Jiwa</div>
-                </div>
-                <div class="stats-card">
-                    <div class="stats-number">15</div>
-                    <div class="stats-label">Provinsi Terdampak</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">
-                    <span class="card-title-icon">ℹ</span>
-                    Tentang Tsunami
-                </div>
-                <p style="line-height: 1.8; color: #555;">
-                    Tsunami merupakan salah satu bencana alam paling mematikan yang dapat terjadi tanpa peringatan yang cukup. Indonesia, yang terletak di Cincin Api Pasifik, sangat rentan terhadap ancaman tsunami karena aktivitas tektonik yang tinggi. Pemahaman yang baik tentang karakteristik, penyebab, dan cara mitigasi tsunami sangat penting untuk mengurangi risiko korban jiwa dan kerusakan infrastruktur.
-                </p>
-            </div>
-
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-title">
-                        <span class="card-title-icon">⚠</span>
-                        Tanda-tanda Tsunami
-                    </div>
-                    <ul class="mitigation-list">
-                        <li>Gempa bumi kuat yang terasa lebih dari 30 detik</li>
-                        <li>Suara gemuruh dari laut seperti pesawat atau kereta api</li>
-                        <li>Air laut surut secara tiba-tiba dan drastis</li>
-                        <li>Perilaku hewan yang tidak biasa atau panik</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="card-title">
-                        <span class="card-title-icon">🚨</span>
-                        Langkah Darurat
-                    </div>
-                    <ul class="mitigation-list">
-                        <li>Segera menuju ke tempat yang lebih tinggi</li>
-                        <li>Jauhi pantai minimal 2 km atau ke ketinggian 30 meter</li>
-                        <li>Jangan menunggu peringatan resmi jika merasakan gempa</li>
-                        <li>Bantu orang lain terutama anak-anak dan lansia</li>
-                    </ul>
-                </div>
-            </div>
+      <!-- Dashboard Page -->
+      <div class="page active" id="dashboard">
+        <div class="banner">
+          <h1>Kenali Bahaya Tsunami</h1>
+          <p>
+            Tsunami adalah gelombang laut yang disebabkan oleh gangguan dasar
+            laut secara vertikal dan tiba-tiba. Gangguan tersebut dapat berupa
+            gempa bumi tektonik, letusan gunung berapi, tanah longsor bawah
+            laut, atau jatuhnya meteor ke laut. Gelombang tsunami dapat merambat
+            dengan kecepatan sangat tinggi hingga 500-1000 km/jam di laut dalam
+            dan menyebabkan kerusakan masif saat mencapai daratan.
+          </p>
+          <div class="banner-buttons">
+            <button class="btn-primary" onclick="showPage('data')">
+              📊 Lihat Data Tsunami
+            </button>
+            <button class="btn-secondary" onclick="showPage('peta')">
+              🗺 Lihat Peta Sebaran
+            </button>
+          </div>
         </div>
 
-        <!-- Data Tsunami Page -->
-        <div class="page" id="data">
-            <div class="card">
-                <div class="card-title">
-                    <span class="card-title-icon">📊</span>
-                    Data Kejadian Tsunami di Indonesia (2000-2024)
-                </div>
-                <div class="chart-container">
-                    <canvas id="tsunamiChart"></canvas>
-                </div>
-            </div>
+        <div class="grid-3">
+          <div class="stats-card">
+            <div class="stats-number">47</div>
+            <div class="stats-label">Total Kejadian Tsunami</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-number">230K+</div>
+            <div class="stats-label">Total Korban Jiwa</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-number">15</div>
+            <div class="stats-label">Provinsi Terdampak</div>
+          </div>
+        </div>
 
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-title">📅 Tahun Terbanyak</div>
-                    <div style="font-size: 36px; font-weight: 700; color: #648DB3; text-align: center; margin: 20px 0;">2018</div>
-                    <p style="text-align: center; color: #666;">3 kejadian tsunami besar</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">💔 Total Korban</div>
-                    <div style="font-size: 36px; font-weight: 700; color: #648DB3; text-align: center; margin: 20px 0;">230,000+</div>
-                    <p style="text-align: center; color: #666;">Korban jiwa sejak tahun 2000</p>
-                </div>
-                <div class="card">
-                    <div class="card-title">🗺 Daerah Terdampak</div>
-                    <div style="font-size: 36px; font-weight: 700; color: #648DB3; text-align: center; margin: 20px 0;">15</div>
-                    <p style="text-align: center; color: #666;">Provinsi di Indonesia</p>
-                </div>
-            </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="card-title-icon">ℹ</span>
+            Tentang Tsunami
+          </div>
+          <p style="line-height: 1.8; color: #555">
+            Tsunami merupakan salah satu bencana alam paling mematikan yang
+            dapat terjadi tanpa peringatan yang cukup. Indonesia, yang terletak
+            di Cincin Api Pasifik, sangat rentan terhadap ancaman tsunami karena
+            aktivitas tektonik yang tinggi. Pemahaman yang baik tentang
+            karakteristik, penyebab, dan cara mitigasi tsunami sangat penting
+            untuk mengurangi risiko korban jiwa dan kerusakan infrastruktur.
+          </p>
+        </div>
 
-            <div class="card">
-                <div class="card-title">
-                    <span class="card-title-icon">📈</span>
-                    Analisis Data
-                </div>
-                <p style="line-height: 1.8; color: #555; margin-bottom: 15px;">
-                    Berdasarkan data historis, kejadian tsunami di Indonesia menunjukkan pola yang dipengaruhi oleh aktivitas seismik di wilayah Cincin Api Pasifik. Tahun 2004 mencatat tsunami paling mematikan dalam sejarah modern dengan korban jiwa mencapai lebih dari 227,000 orang di Aceh dan sekitarnya.
-                </p>
-                <p style="line-
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">
+              <span class="card-title-icon">⚠</span>
+              Tanda-tanda Tsunami
+            </div>
+            <ul class="mitigation-list">
+              <li>Gempa bumi kuat yang terasa lebih dari 30 detik</li>
+              <li>Suara gemuruh dari laut seperti pesawat atau kereta api</li>
+              <li>Air laut surut secara tiba-tiba dan drastis</li>
+              <li>Perilaku hewan yang tidak biasa atau panik</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span class="card-title-icon">🚨</span>
+              Langkah Darurat
+            </div>
+            <ul class="mitigation-list">
+              <li>Segera menuju ke tempat yang lebih tinggi</li>
+              <li>Jauhi pantai minimal 2 km atau ke ketinggian 30 meter</li>
+              <li>Jangan menunggu peringatan resmi jika merasakan gempa</li>
+              <li>Bantu orang lain terutama anak-anak dan lansia</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Tsunami Page -->
+      <div class="page" id="data">
+        <div class="card">
+          <div class="card-title">
+            <span class="card-title-icon">📊</span>
+            Data Kejadian Tsunami di Indonesia (2000-2024)
+          </div>
+          <div class="chart-container">
+            <canvas id="tsunamiChart"></canvas>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">📅 Tahun Terbanyak</div>
+            <div
+              style="
+                font-size: 36px;
+                font-weight: 700;
+                color: #648db3;
+                text-align: center;
+                margin: 20px 0;
+              "
+            >
+              2018
+            </div>
+            <p style="text-align: center; color: #666">
+              3 kejadian tsunami besar
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">💔 Total Korban</div>
+            <div
+              style="
+                font-size: 36px;
+                font-weight: 700;
+                color: #648db3;
+                text-align: center;
+                margin: 20px 0;
+              "
+            >
+              230,000+
+            </div>
+            <p style="text-align: center; color: #666">
+              Korban jiwa sejak tahun 2000
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">🗺 Daerah Terdampak</div>
+            <div
+              style="
+                font-size: 36px;
+                font-weight: 700;
+                color: #648db3;
+                text-align: center;
+                margin: 20px 0;
+              "
+            >
+              15
+            </div>
+            <p style="text-align: center; color: #666">Provinsi di Indonesia</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="card-title-icon">📈</span>
+            Analisis Data
+          </div>
+          <p style="line-height: 1.8; color: #555; margin-bottom: 15px">
+            Berdasarkan data historis, kejadian tsunami di Indonesia menunjukkan
+            pola yang dipengaruhi oleh aktivitas seismik di wilayah Cincin Api
+            Pasifik. Tahun 2004 mencatat tsunami paling mematikan dalam sejarah
+            modern dengan korban jiwa mencapai lebih dari 227,000 orang di Aceh
+            dan sekitarnya.
+          </p>
+          <p style="line-height: 1.8; color: #555">
+            Pola kejadian tsunami juga menunjukkan peningkatan risiko di wilayah
+            pesisir barat Sumatera, selatan Jawa, dan bagian timur Indonesia
+            seperti Maluku serta Papua. Data ini menegaskan pentingnya
+            kesiapsiagaan masyarakat dan sistem peringatan dini untuk
+            meminimalkan dampak bencana. Pemerintah dan lembaga terkait
+            diharapkan terus memperkuat sistem mitigasi berbasis data dan
+            teknologi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
