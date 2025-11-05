@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIM BENCANA - Penyebab Tsunami</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* --- HEADER STYLES --- */
+        .header {
+            background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+            color: white;
+            padding: 20px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ecefca;
+        }
+
+        .header-title h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-pimpinan {
+            background: #2c5282;
+            color: white;
+        }
+
+        .btn-admin {
+            background: #ecefca;
+            color: #648db3;
+        }
+
+        /* --- SIDEBAR STYLES --- */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 85px;
+            height: calc(100vh - 85px);
+            width: 260px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            overflow-y: auto;
+            z-index: 998;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: #f0f4f8;
+            color: #648db3;
+        }
+
+        .menu-item.active {
+            background: linear-gradient(90deg,
+                    #ecefca 0%,
+                    rgba(236, 239, 202, 0.3) 100%);
+            color: #648db3;
+            border-left-color: #648db3;
+            font-weight: 600;
+        }
+
+        .menu-icon {
+            font-size: 22px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .menu-text {
+            font-size: 15px;
+            white-space: nowrap;
+        }
+
+        /* --- MAIN CONTENT --- */
+.main-content {
+    margin-left: 260px;
+    margin-top: 85px;
+    padding: 30px;
+    min-height: calc(100vh - 85px);
+    background: #f7f9fb;
+}
+
+/* GRID CARD BOX */
+.tsunami-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+/* CARD STYLE */
+.tsunami-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tsunami-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* IMAGE */
+.tsunami-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* CARD BODY */
+.tsunami-card .content {
+    padding: 18px 20px;
+}
+
+.tsunami-card h5 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2c5282;
+    margin-bottom: 8px;
+}
+
+.tsunami-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+    text-align: justify;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">🌊 SIM BENCANA</div>
+                <div class="header-title">
+                    <h1>Sistem Informasi Manajemen Bencana Tsunami</h1>
+                    <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
+                <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <a class="menu-item">
+            <span class="menu-icon">🏠</span>
+            <span class="menu-text">Dashboard</span>
+        </a>
+        <a class="menu-item">
+            <span class="menu-icon">📊</span>
+            <span class="menu-text">Data Tsunami</span>
+        </a>
+        <a class="menu-item">
+            <span class="menu-icon">📜</span>
+            <span class="menu-text">Sejarah Kejadian</span>
+        </a>
+        <a class="menu-item active">
+            <span class="menu-icon">⚡</span>
+            <span class="menu-text">Penyebab</span>
+        </a>
+        <a class="menu-item">
+            <span class="menu-icon">🚨</span>
+            <span class="menu-text">Dampak</span>
+        </a>
+        <a class="menu-item">
+            <span class="menu-icon">🧭</span>
+            <span class="menu-text">Mitigasi</span>
+        </a>
+        <a class="menu-item">
+            <span class="menu-icon">🎥</span>
+            <span class="menu-text">Video Edukasi</span>
+        </a>
+        <a class="menu-item">
+            <span class="menu-icon">🗺</span>
+            <span class="menu-text">Peta Sebaran</span>
+        </a>
+    <div class="main-content">
+    <h2 style="margin-bottom: 20px; color:#2c5282;">Penyebab Tsunami Berdasarkan Kejadian Dunia</h2>
+
+    <div class="tsunami-grid">
+        <div class="tsunami-card">
+            <img src="img/palu.jpg" alt="tsunami palu">
+            <div class="content">
+                <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
+                <p>Gempa M 7,4 memicu tsunami hingga 6 meter dengan kecepatan 800 km/jam.</p>
+            </div>
+        </div>
+
+        <div class="tsunami-card">
+            <img src="img/selatsunda.jpg" alt="tsunami aceh">
+            <div class="content">
+                <h5>Tsunami Aceh, Indonesia (2004)</h5>
+                <p>Gempa 9,1 SR mengangkat dasar laut dan menciptakan tsunami hingga 50 meter.</p>
+            </div>
+        </div>
+
+        <div class="tsunami-card">
+            <img src="img/jepang.jpg" alt="tsunami jepang">
+            <div class="content">
+                <h5>Tsunami Jepang (2011)</h5>
+                <p>Gempa 9,0 SR memicu tsunami setinggi 40 meter, kecepatan 700 km/jam.</p>
+            </div>
+        </div>
+
+        <div class="tsunami-card">
+            <img src="img/selatsunda.jpg" alt="tsunami selat sunda">
+            <div class="content">
+                <h5>Tsunami Selat Sunda (2018)</h5>
+                <p>Letusan Anak Krakatau memicu tsunami yang menelan ratusan korban jiwa.</p>
+            </div>
+        </div>
+    </div>
+</div>
