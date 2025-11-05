@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIM BENCANA - Penyebab Tsunami</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f7fa;
+        color: #333;
+      }
+
+      /* --- HEADER STYLES --- */
+      .header {
+        background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+        color: white;
+        padding: 20px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: #ecefca;
+      }
+
+      .header-title h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .header-right {
+        display: flex;
+        gap: 15px;
+      }
+
+      .btn-login {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-pimpinan {
+        background: #2c5282;
+        color: white;
+      }
+
+      .btn-admin {
+        background: #ecefca;
+        color: #648db3;
+      }
+
+      /* --- SIDEBAR STYLES --- */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 85px;
+        height: calc(100vh - 85px);
+        width: 260px;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        padding: 20px 0;
+        overflow-y: auto;
+        z-index: 998;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 25px;
+        color: #555;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-left: 4px solid transparent;
+      }
+
+      .menu-item:hover {
+        background: #f0f4f8;
+        color: #648db3;
+      }
+
+      .menu-item.active {
+        background: linear-gradient(
+          90deg,
+          #ecefca 0%,
+          rgba(236, 239, 202, 0.3) 100%
+        );
+        color: #648db3;
+        border-left-color: #648db3;
+        font-weight: 600;
+      }
+
+      .menu-icon {
+        font-size: 22px;
+        min-width: 30px;
+        text-align: center;
+      }
+
+      .menu-text {
+        font-size: 15px;
+        white-space: nowrap;
+      }
+
+      /* --- MAIN CONTENT (Hanya sebagai container) --- */
+      .main-content {
+        margin-left: 260px;
+        margin-top: 85px;
+        min-height: calc(100vh - 85px);
+        padding: 30px;
+      }
+
+      /* Gaya untuk Container Penyebab */
+      .cause-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border-top: 5px solid #648db3;
+      }
+
+      /* Gaya baru untuk gambar di dalam kartu penyebab */
+      .cause-image {
+        width: 100%; /* Memastikan gambar memenuhi lebar kartu */
+        height: 150px; /* Tinggi tetap */
+        object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+        border-radius: 8px;
+        margin-bottom: 15px;
+        /* Tambahkan placeholder visual */
+        background-color: #f0f4f8;
+        display: block;
+      }
+
+      .cause-card h3 {
+        margin-top: 0; /* Menghilangkan margin atas default h3 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo">🌊 SIM BENCANA</div>
+          <div class="header-title">
+            <h1>Sistem Informasi Manajemen Bencana Tsunami</h1>
+            <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
+          <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <a class="menu-item">
+        <span class="menu-icon">🏠</span>
+        <span class="menu-text">Dashboard</span>
+      </a>
+      <a class="menu-item">
+        <span class="menu-icon">📊</span>
+        <span class="menu-text">Data Tsunami</span>
+      </a>
+      <a class="menu-item">
+        <span class="menu-icon">📜</span>
+        <span class="menu-text">Sejarah Kejadian</span>
+      </a>
+      <a class="menu-item active">
+        <span class="menu-icon">⚡</span>
+        <span class="menu-text">Penyebab</span>
+      </a>
+      <a class="menu-item">
+        <span class="menu-icon">🚨</span>
+        <span class="menu-text">Dampak</span>
+      </a>
+      <a class="menu-item">
+        <span class="menu-icon">🧭</span>
+        <span class="menu-text">Mitigasi</span>
+      </a>
+      <a class="menu-item">
+        <span class="menu-icon">🎥</span>
+        <span class="menu-text">Video Edukasi</span>
+      </a>
+      <a class="menu-item">
+        <span class="menu-icon">🗺</span>
+        <span class="menu-text">Peta Sebaran</span>
+      </a>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <h2 style="color: #648db3; margin-bottom: 20px">
+        ⚡ Penyebab Utama Terjadinya Tsunami
+      </h2>
+      <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
+        Tsunami dapat dipicu oleh berbagai fenomena alam yang menyebabkan
+        perpindahan air laut secara vertikal dan mendadak. Memahami penyebabnya
+        penting untuk sistem peringatan dini.
+      </p>
+
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        "
+      >
+        <div class="cause-card">
+          <img
+            src="https://id.wikipedia.org/wiki/Longsor_bawah_laut"
+            alt="Ilustrasi Longsor Bawah Laut"
+            class="cause-image"
+          />
+
+          <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+            ⛰️ Longsor Bawah Laut
+          </h3>
+          <p style="font-size: 14px; color: #666">
+            Runtuhan material di lereng dasar laut menyebabkan perubahan
+            mendadak pada dasar laut, sehingga air di atasnya ikut terdorong
+            atau tersedot.
+          </p>
+        </div>
+
+        <div class="cause-card">
+          <img
+            src="https://www.istockphoto.com/id/foto-foto/gunung-meletus-ilustrasi"
+            alt="Ilustrasi Letusan Gunung Berapi Bawah Laut"
+            class="cause-image"
+          />
+
+          <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+            🌋 Letusan Gunung Berapi Bawah Laut
+          </h3>
+          <p style="font-size: 14px; color: #666">
+            Letusan kuat dapat memicu pergerakan atau tanah longsor di dasar
+            laut sehingga bisa mengganggu keseimbangan air laut dan memicu
+            gelombang tsunami.
+          </p>
+        </div>
+
+        <div class="cause-card">
+          <img
+            src="https://id.wikipedia.org/wiki/Gempa_bumi_tektonik"
+            alt="Ilustrasi Gempa Bumi Tektonik Bawah Laut"
+            class="cause-image"
+          />
+
+          <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+            💥 Gempa Bumi Teknonik
+          </h3>
+          <p style="font-size: 14px; color: #666">
+            Gempa bumi yang terjadi karena pergeseran lempeng bumi di bawah laut
+            menyebabkan dasar laut naik atau turun secara vertikal, memindahkan
+            volume air yang besar.
+          </p>
+        </div>
+
+        <div class="cause-card">
+          <img
+            src="https://www.istockphoto.com/id/foto-foto/meteorit"
+            alt="Ilustrasi Benda Langit Jatuh ke Laut"
+            class="cause-image"
+          />
+
+          <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+            🌠 Benda Langit yang Jatuh ke Laut
+          </h3>
+          <p style="font-size: 14px; color: #666">
+            Benda langit seperti meteor atau komet jatuh ke laut. Jika ukurannya
+            besar, ia akan menimbulkan ledakan besar dan gelombang kejut yang
+            menghasilkan tsunami.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
