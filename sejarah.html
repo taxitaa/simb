@@ -127,27 +127,28 @@
             background: #648db3;
             border-radius: 10px;
         }
-        /* Sembunyikan tombol menu toggle di desktop */
-.menu-toggle {
-    display: none;
-}
 
-/* Tampilkan hanya di layar kecil (mobile) */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 110px; 
-        left: 15px;
-        font-size: 24px;
-        background: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        z-index: 999;
-    }
-}
+        /* Sembunyikan tombol menu toggle di desktop */
+        .menu-toggle {
+            display: none;
+        }
+
+        /* Tampilkan hanya di layar kecil (mobile) */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 110px;
+                left: 15px;
+                font-size: 24px;
+                background: white;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                z-index: 999;
+            }
+        }
 
 
         .menu-item {
