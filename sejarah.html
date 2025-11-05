@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIM BENCANA - Penyebab Tsunami</title>
+    <title>SIM BENCANA - Sejarah Kejadian Tsunami</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
@@ -224,47 +224,49 @@
     </div>
 
     <div class="sidebar" id="sidebar">
-        <a class="menu-item">
-            <span class="menu-icon">🏠</span>
-            <span class="menu-text">Dashboard</span>
-        </a>
-        <a class="menu-item">
-            <span class="menu-icon">📊</span>
-            <span class="menu-text">Data Tsunami</span>
-        </a>
-        <a class="menu-item">
-            <span class="menu-icon">📜</span>
-            <span class="menu-text">Sejarah Kejadian</span>
-        </a>
-        <a class="menu-item active">
-            <span class="menu-icon">⚡</span>
-            <span class="menu-text">Penyebab</span>
-        </a>
-        <a class="menu-item">
-            <span class="menu-icon">🚨</span>
-            <span class="menu-text">Dampak</span>
-        </a>
-        <a class="menu-item">
-            <span class="menu-icon">🧭</span>
-            <span class="menu-text">Mitigasi</span>
-        </a>
-        <a class="menu-item">
-            <span class="menu-icon">🎥</span>
-            <span class="menu-text">Video Edukasi</span>
-        </a>
-        <a class="menu-item">
-            <span class="menu-icon">🗺</span>
-            <span class="menu-text">Peta Sebaran</span>
-        </a>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    <a class="menu-item active" onclick="showPage('dashboard')">
+      <span class="menu-icon">🏠</span>
+      <span class="menu-text">Dashboard</span>
+    </a>
+    <a class="menu-item" onclick="showPage('data')">
+      <span class="menu-icon">📊</span>
+      <span class="menu-text">Data Tsunami</span>
+    </a>
+    <a class="menu-item" href="sejarah.html">
+      <span class="menu-icon">📜</span>
+      <span class="menu-text">Sejarah Kejadian</span>
+    </a>
+    <a class="menu-item" href="penyebab.html">
+      <span class="menu-icon">⚡</span>
+      <span class="menu-text">Penyebab</span>
+    </a>
+    <a class="menu-item" onclick="showPage('dampak')">
+      <span class="menu-icon">🚨</span>
+      <span class="menu-text">Dampak</span>
+    </a>
+    <a class="menu-item" onclick="showPage('mitigasi')">
+      <span class="menu-icon">🧭</span>
+      <span class="menu-text">Mitigasi</span>
+    </a>
+    <a class="menu-item" onclick="showPage('video')">
+      <span class="menu-icon">🎥</span>
+      <span class="menu-text">Video Edukasi</span>
+    </a>
+    <a class="menu-item" onclick="showPage('peta')">
+      <span class="menu-icon">🗺</span>
+      <span class="menu-text">Peta Sebaran</span>
+    </a>
+  </div>
     <div class="main-content">
-    <h2 style="margin-bottom: 20px; color:#2c5282;">Penyebab Tsunami Berdasarkan Kejadian Dunia</h2>
+    <h2 style="margin-bottom: 20px; color:#2c5282;">Sejarah Kejadian Tsunami di Dunia</h2>
 
     <div class="tsunami-grid">
         <div class="tsunami-card">
             <img src="img/palu.jpg" alt="tsunami palu">
             <div class="content">
                 <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
-                <p>Gempa M 7,4 memicu tsunami hingga 6 meter dengan kecepatan 800 km/jam.</p>
+                <p>Pada tanggal 28 September 2018, terjadi gempa bumi bermagnitudo 7,4 mengguncang Kota Palu dan Donggala. Pusat Gempa ada pada kedalaman 10 km, jaraknya ada di 27 km sebelah timur laut Donggala. Hal ini memicu tsunami setinggi hampir 6 meter dengan kecepatan 800km/jam.</p>
             </div>
         </div>
 
@@ -272,15 +274,15 @@
             <img src="img/selatsunda.jpg" alt="tsunami aceh">
             <div class="content">
                 <h5>Tsunami Aceh, Indonesia (2004)</h5>
-                <p>Gempa 9,1 SR mengangkat dasar laut dan menciptakan tsunami hingga 50 meter.</p>
+                <p>Pata tanggal 26 Desember 2004, terjadi gempa bumi yang begitu besar di lepas pantai Sumatra dengan kekuatan 9,1 Skala Richter yang menyebabkan retakan di dasar laut sepanjang 1.300 kilometer. Retakan itu membuat isi dasar laut terangkat dan menciptakan gelombang air atau tsunami dengan ketinggian mencapai 50 meter, setinggi gedung 10-15 lantai.</p>
             </div>
         </div>
 
         <div class="tsunami-card">
             <img src="img/jepang.jpg" alt="tsunami jepang">
             <div class="content">
-                <h5>Tsunami Jepang (2011)</h5>
-                <p>Gempa 9,0 SR memicu tsunami setinggi 40 meter, kecepatan 700 km/jam.</p>
+                <h5>Tsunami Pulau Honshu, Jepang (2011)</h5>
+                <p>Pada tanggal 11 Maret 2011, terjadi gempa bumi berkekuatan 9,0 Skala Richter di lepas pantai timur laut Pulau Honshu, Jepang, yang memicu terjadinya tsunami dengan ketinggian hingga 40,5 meter dengan kecepatan hingga 700 km/jam.</p>
             </div>
         </div>
 
@@ -288,7 +290,7 @@
             <img src="img/selatsunda.jpg" alt="tsunami selat sunda">
             <div class="content">
                 <h5>Tsunami Selat Sunda (2018)</h5>
-                <p>Letusan Anak Krakatau memicu tsunami yang menelan ratusan korban jiwa.</p>
+                <p>Pada tanggal 22 Desember 2018, peristiwa tsunami yang disebabkan oleh letusan Anak Krakatau di Selat Sunda menghantam daerah pesisir Banten dan Lampung, Indonesia. Sedikitnya 426 orang tewas, 7.202 terluka dan 23 orang hilang akibat peristiwa ini.</p>
             </div>
         </div>
     </div>
