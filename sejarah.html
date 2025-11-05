@@ -100,15 +100,55 @@
         .sidebar {
             position: fixed;
             left: 0;
-            top: 85px;
-            height: calc(100vh - 85px);
+            top: 80px;
             width: 260px;
+            height: calc(100vh - 95px);
             background: white;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
             padding: 20px 0;
             overflow-y: auto;
             z-index: 998;
+            transition: all 0.3s;
         }
+
+        .sidebar.mobile-open {
+            transform: translateX(0);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #648db3;
+            border-radius: 10px;
+        }
+        /* Sembunyikan tombol menu toggle di desktop */
+.menu-toggle {
+    display: none;
+}
+
+/* Tampilkan hanya di layar kecil (mobile) */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 110px; 
+        left: 15px;
+        font-size: 24px;
+        background: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 999;
+    }
+}
+
 
         .menu-item {
             display: flex;
@@ -148,61 +188,60 @@
         }
 
         /* --- MAIN CONTENT --- */
-.main-content {
-    margin-left: 260px;
-    margin-top: 85px;
-    padding: 30px;
-    min-height: calc(100vh - 85px);
-    background: #f7f9fb;
-}
+        .main-content {
+            margin-left: 260px;
+            margin-top: 85px;
+            padding: 30px;
+            min-height: calc(100vh - 85px);
+            background: #f7f9fb;
+        }
 
-/* GRID CARD BOX */
-.tsunami-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 25px;
-}
+        /* GRID CARD BOX */
+        .tsunami-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
 
-/* CARD STYLE */
-.tsunami-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+        /* CARD STYLE */
+        .tsunami-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
 
-.tsunami-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
+        .tsunami-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
 
-/* IMAGE */
-.tsunami-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
+        /* IMAGE */
+        .tsunami-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-/* CARD BODY */
-.tsunami-card .content {
-    padding: 18px 20px;
-}
+        /* CARD BODY */
+        .tsunami-card .content {
+            padding: 18px 20px;
+        }
 
-.tsunami-card h5 {
-    font-size: 17px;
-    font-weight: 600;
-    color: #2c5282;
-    margin-bottom: 8px;
-}
+        .tsunami-card h5 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c5282;
+            margin-bottom: 8px;
+        }
 
-.tsunami-card p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #444;
-    text-align: justify;
-}
-
+        .tsunami-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            text-align: justify;
+        }
     </style>
 </head>
 
@@ -224,74 +263,83 @@
     </div>
 
     <div class="sidebar" id="sidebar">
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-    <a class="menu-item active" onclick="showPage('dashboard')">
-      <span class="menu-icon">🏠</span>
-      <span class="menu-text">Dashboard</span>
-    </a>
-    <a class="menu-item" onclick="showPage('data')">
-      <span class="menu-icon">📊</span>
-      <span class="menu-text">Data Tsunami</span>
-    </a>
-    <a class="menu-item" href="sejarah.html">
-      <span class="menu-icon">📜</span>
-      <span class="menu-text">Sejarah Kejadian</span>
-    </a>
-    <a class="menu-item" href="penyebab.html">
-      <span class="menu-icon">⚡</span>
-      <span class="menu-text">Penyebab</span>
-    </a>
-    <a class="menu-item" onclick="showPage('dampak')">
-      <span class="menu-icon">🚨</span>
-      <span class="menu-text">Dampak</span>
-    </a>
-    <a class="menu-item" onclick="showPage('mitigasi')">
-      <span class="menu-icon">🧭</span>
-      <span class="menu-text">Mitigasi</span>
-    </a>
-    <a class="menu-item" onclick="showPage('video')">
-      <span class="menu-icon">🎥</span>
-      <span class="menu-text">Video Edukasi</span>
-    </a>
-    <a class="menu-item" onclick="showPage('peta')">
-      <span class="menu-icon">🗺</span>
-      <span class="menu-text">Peta Sebaran</span>
-    </a>
-  </div>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <a class="menu-item active" onclick="showPage('dashboard')">
+            <span class="menu-icon">🏠</span>
+            <span class="menu-text">Dashboard</span>
+        </a>
+        <a class="menu-item" onclick="showPage('data')">
+            <span class="menu-icon">📊</span>
+            <span class="menu-text">Data Tsunami</span>
+        </a>
+        <a class="menu-item" href="sejarah.html">
+            <span class="menu-icon">📜</span>
+            <span class="menu-text">Sejarah Kejadian</span>
+        </a>
+        <a class="menu-item" href="penyebab.html">
+            <span class="menu-icon">⚡</span>
+            <span class="menu-text">Penyebab</span>
+        </a>
+        <a class="menu-item" onclick="showPage('dampak')">
+            <span class="menu-icon">🚨</span>
+            <span class="menu-text">Dampak</span>
+        </a>
+        <a class="menu-item" onclick="showPage('mitigasi')">
+            <span class="menu-icon">🧭</span>
+            <span class="menu-text">Mitigasi</span>
+        </a>
+        <a class="menu-item" onclick="showPage('video')">
+            <span class="menu-icon">🎥</span>
+            <span class="menu-text">Video Edukasi</span>
+        </a>
+        <a class="menu-item" onclick="showPage('peta')">
+            <span class="menu-icon">🗺</span>
+            <span class="menu-text">Peta Sebaran</span>
+        </a>
+    </div>
     <div class="main-content">
-    <h2 style="margin-bottom: 20px; color:#2c5282;">Sejarah Kejadian Tsunami di Dunia</h2>
+        <h2 style="margin-bottom: 20px; color:#2c5282;">Sejarah Kejadian Tsunami di Dunia</h2>
 
-    <div class="tsunami-grid">
-        <div class="tsunami-card">
-            <img src="img/palu.jpg" alt="tsunami palu">
-            <div class="content">
-                <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
-                <p>Pada tanggal 28 September 2018, terjadi gempa bumi bermagnitudo 7,4 mengguncang Kota Palu dan Donggala. Pusat Gempa ada pada kedalaman 10 km, jaraknya ada di 27 km sebelah timur laut Donggala. Hal ini memicu tsunami setinggi hampir 6 meter dengan kecepatan 800km/jam.</p>
+        <div class="tsunami-grid">
+            <div class="tsunami-card">
+                <img src="img/palu.jpg" alt="tsunami palu">
+                <div class="content">
+                    <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
+                    <p>Pada tanggal 28 September 2018, terjadi gempa bumi bermagnitudo 7,4 mengguncang Kota Palu dan
+                        Donggala. Pusat Gempa ada pada kedalaman 10 km, jaraknya ada di 27 km sebelah timur laut
+                        Donggala. Hal ini memicu tsunami setinggi hampir 6 meter dengan kecepatan 800km/jam.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="tsunami-card">
-            <img src="img/selatsunda.jpg" alt="tsunami aceh">
-            <div class="content">
-                <h5>Tsunami Aceh, Indonesia (2004)</h5>
-                <p>Pata tanggal 26 Desember 2004, terjadi gempa bumi yang begitu besar di lepas pantai Sumatra dengan kekuatan 9,1 Skala Richter yang menyebabkan retakan di dasar laut sepanjang 1.300 kilometer. Retakan itu membuat isi dasar laut terangkat dan menciptakan gelombang air atau tsunami dengan ketinggian mencapai 50 meter, setinggi gedung 10-15 lantai.</p>
+            <div class="tsunami-card">
+                <img src="img/selatsunda.jpg" alt="tsunami aceh">
+                <div class="content">
+                    <h5>Tsunami Aceh, Indonesia (2004)</h5>
+                    <p>Pata tanggal 26 Desember 2004, terjadi gempa bumi yang begitu besar di lepas pantai Sumatra
+                        dengan kekuatan 9,1 Skala Richter yang menyebabkan retakan di dasar laut sepanjang 1.300
+                        kilometer. Retakan itu membuat isi dasar laut terangkat dan menciptakan gelombang air atau
+                        tsunami dengan ketinggian mencapai 50 meter, setinggi gedung 10-15 lantai.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="tsunami-card">
-            <img src="img/jepang.jpg" alt="tsunami jepang">
-            <div class="content">
-                <h5>Tsunami Pulau Honshu, Jepang (2011)</h5>
-                <p>Pada tanggal 11 Maret 2011, terjadi gempa bumi berkekuatan 9,0 Skala Richter di lepas pantai timur laut Pulau Honshu, Jepang, yang memicu terjadinya tsunami dengan ketinggian hingga 40,5 meter dengan kecepatan hingga 700 km/jam.</p>
+            <div class="tsunami-card">
+                <img src="img/jepang.jpg" alt="tsunami jepang">
+                <div class="content">
+                    <h5>Tsunami Pulau Honshu, Jepang (2011)</h5>
+                    <p>Pada tanggal 11 Maret 2011, terjadi gempa bumi berkekuatan 9,0 Skala Richter di lepas pantai
+                        timur laut Pulau Honshu, Jepang, yang memicu terjadinya tsunami dengan ketinggian hingga 40,5
+                        meter dengan kecepatan hingga 700 km/jam.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="tsunami-card">
-            <img src="img/selatsunda.jpg" alt="tsunami selat sunda">
-            <div class="content">
-                <h5>Tsunami Selat Sunda (2018)</h5>
-                <p>Pada tanggal 22 Desember 2018, peristiwa tsunami yang disebabkan oleh letusan Anak Krakatau di Selat Sunda menghantam daerah pesisir Banten dan Lampung, Indonesia. Sedikitnya 426 orang tewas, 7.202 terluka dan 23 orang hilang akibat peristiwa ini.</p>
+            <div class="tsunami-card">
+                <img src="img/selatsunda.jpg" alt="tsunami selat sunda">
+                <div class="content">
+                    <h5>Tsunami Selat Sunda (2018)</h5>
+                    <p>Pada tanggal 22 Desember 2018, peristiwa tsunami yang disebabkan oleh letusan Anak Krakatau di
+                        Selat Sunda menghantam daerah pesisir Banten dan Lampung, Indonesia. Sedikitnya 426 orang tewas,
+                        7.202 terluka dan 23 orang hilang akibat peristiwa ini.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
