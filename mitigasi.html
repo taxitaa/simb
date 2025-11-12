@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIMATSU - Mitigasi Tsunami</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    /* --- HEADER STYLES --- */
+    .header {
+      background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+      color: white;
+      padding: 20px 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ecefca;
+    }
+
+    .header-title h1 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header-title p {
+      font-size: 12px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-login {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-pimpinan {
+      background: #2c5282;
+      color: white;
+    }
+
+    .btn-admin {
+      background: #ecefca;
+      color: #648db3;
+    }
+
+    /* --- SIDEBAR STYLES --- */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 80px;
+      width: 260px;
+      height: calc(100vh - 95px);
+      background: white;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      padding: 20px 0;
+      overflow-y: auto;
+      z-index: 998;
+      transition: all 0.3s;
+    }
+
+    .sidebar.mobile-open {
+      transform: translateX(0);
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #648db3;
+      border-radius: 10px;
+    }
+
+    /* Sembunyikan tombol menu toggle di desktop */
+    .menu-toggle {
+      display: none;
+    }
+
+    /* Tampilkan hanya di layar kecil (mobile) */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 110px;
+        left: 15px;
+        font-size: 24px;
+        background: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 999;
+      }
+    }
+
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 25px;
+      color: #555;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border-left: 4px solid transparent;
+    }
+
+    .menu-item:hover {
+      background: #f0f4f8;
+      color: #648db3;
+    }
+
+    .menu-item.active {
+      background: linear-gradient(90deg,
+          #ecefca 0%,
+          rgba(236, 239, 202, 0.3) 100%);
+      color: #648db3;
+      border-left-color: #648db3;
+      font-weight: 600;
+    }
+
+    .menu-icon {
+      font-size: 22px;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .menu-text {
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    /* --- MAIN CONTENT (Hanya sebagai container) --- */
+    .main-content {
+      margin-left: 260px;
+      margin-top: 85px;
+      min-height: calc(100vh - 85px);
+      padding: 30px;
+    }
+
+    /* Gaya untuk Container Penyebab */
+    .cause-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border-top: 5px solid #648db3;
+    }
+
+    /* Gaya baru untuk gambar di dalam kartu penyebab */
+    .cause-image {
+      width: 100%;
+      /* Memastikan gambar memenuhi lebar kartu */
+      height: 150px;
+      /* Tinggi tetap */
+      object-fit: cover;
+      /* Memastikan gambar tidak terdistorsi */
+      border-radius: 8px;
+      margin-bottom: 15px;
+      /* Tambahkan placeholder visual */
+      background-color: #f0f4f8;
+      display: block;
+    }
+
+    .cause-card h3 {
+      margin-top: 0;
+      /* Menghilangkan margin atas default h3 */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="logo">🌊 SIMATSU</div>
+        <div class="header-title">
+          <h1>Sistem Informasi Manajemen Tsunami</h1>
+          <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
+        <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <a class="menu-item" href="simb.html">
+      <span class="menu-icon">🏠</span>
+      <span class="menu-text">Dashboard</span>
+    </a>
+    <a class="menu-item">
+      <span class="menu-icon">📊</span>
+      <span class="menu-text">Data Tsunami</span>
+    </a>
+    <a class="menu-item" href="sejarah.html">
+      <span class="menu-icon">📜</span>
+      <span class="menu-text">Sejarah Kejadian</span>
+    </a>
+    <a class="menu-item" href="penyebab.html">
+      <span class="menu-icon">⚡</span>
+      <span class="menu-text">Penyebab</span>
+    </a>
+    <a class="menu-item" href="dampak.html">
+      <span class="menu-icon">🚨</span>
+      <span class="menu-text">Dampak</span>
+    </a>
+    <a class="menu-item active" href="mitigasi.html">
+      <span class="menu-icon">🧭</span>
+      <span class="menu-text">Mitigasi</span>
+    </a>
+    <a class="menu-item">
+      <span class="menu-icon">🎥</span>
+      <span class="menu-text">Video Edukasi</span>
+    </a>
+    <a class="menu-item">
+      <span class="menu-icon">🗺</span>
+      <span class="menu-text">Peta Sebaran</span>
+    </a>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <h2 style="color: #2c5282; margin-bottom: 20px">
+      Mitigasi Terjadinya Tsunami
+    </h2>
+    <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
+      Mitigasi tsunami meliputi berbagai upaya untuk mengurangi risiko dan dampak yang ditimbulkannya, seperti pembangunan sistem peringatan dini, edukasi masyarakat, serta penataan wilayah pesisir yang aman. Langkah-langkah ini penting untuk melindungi jiwa dan meminimalkan kerugian saat bencana terjadi.
+    </p>
+
+
+<div>
+    <h3 style="color: #648db3; margin-bottom: 20px">
+      Sebelum Terjadinya Tsunami
+    </h3>
+    <div style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        ">
+      <div class="cause-card">
+        <img src="assets/tandatsunami.jpg" alt="Ilustrasi tanda tanda tsunami"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Ketahui tanda-tanda peringatan tsunami
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          naik atau turunnya air pantai dengan cepat, gemuruh keras dari laut, atau gemuruh gempa bumi
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/pusatresmi.jpg" alt="ilustrasi pusat informasi resmi"
+          alt="Ilustrasi pusat resmi informasi" class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Mengetahui pusat informasi dan Sistem peringatan dini
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          BPBD, BMKG, PVMBG dan instansi lainnya. Sirene, SMS broadcast, radio/TOA.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="" alt="Ilustrasi pemetaan rute"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Pemetaan rute evakuasi
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Mengenali tempat tempat di sekitar daerah tersebut
+Menyusun jalur/rute evakuasi resmi beserta penanda, titik kumpul, dan lokasi tempat tinggi/aman.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/sosialisasi.jpg" alt="Ilustrasi Sosialiasi"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Sosialiasi dan Edukasi kepada masyarakat
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Mengedukasi masyarakat tentang tanda-tanda tsunami
+Sosialisasi secara rutin
+        </p>
+      </div>
+    </div>
+<br>
+
+  <h3 style="color: #648db3; margin-bottom: 20px">
+      Saat Terjadinya Tsunami
+    </h3>
+    <div style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        ">
+      <div class="cause-card">
+        <img src="assets/lariketinggi.jpg" alt="Ilustrasi lari ke tempat tinggi"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Lari ke Tempat Tinggi Segera
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Segera menuju tempat tinggi jika terjadi gempa di pantai disertai air laut surut, ikuti rute evakuasi resmi.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="" alt="ilustrasi tetap di laut"
+          alt="Ilustrasi Letusan Gunung Berapi Bawah Laut" class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Tetap di laut, jangan ke pantai
+        </h4>
+        <p style="font-size: 14px; color: #666">
+         jika berada di kapal/perahu tetap d tengah laut, jangan mendekat ke pantai.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/susulan.jpg" alt="Ilustrasi waspadai gelombang susulan"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Waspadai gelombang susulan
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Jangan kembali ke tempat rendah, karena gelombang berikutnya bisa lebih berbahaya.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="" alt="Ilustrasi tinggalkan kendaraan"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Tinggalkan kendaraan, selamatkan diri
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          jika sedang menyetir, tinggalkan kendaraan dan segera mencari tempat tinggi yang aman.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/saring.jpg" alt="Ilustrasi arahan resmi"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Ikuti arahan resmi, saring informasi
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Mengungsi sesuai arahan pihak berwenang, hindari informasi dari sumber tidak jelas.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/bantusesama.jpeg" alt="Ilustrasi bantu sesama"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Utamakan nyawa, bantu sesama
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Utamakan keselamatan, tinggalkan barang tidak penting, pastikan anggota keluarga aman, dan bantu orang sekitar untuk menyelamatkan diri.
+        </p>
+      </div>
+
+    </div>
+<br>
+    <h3 style="color: #648db3; margin-bottom: 20px">
+      Setelah Terjadinya Tsunami
+    </h3>
+    <div style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        ">
+      <div class="cause-card">
+        <img src="" alt="Ilustrasi menjauhi tempat rusak"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Menjauhi tempat rusak
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Jauhi area yang rusak atau banjir dan kabel listrik yang putus.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/cekketersediaan.jpg" alt="ilustrasi ketersediaan makanan"
+          alt="Ilustrasi Letusan Gunung Berapi Bawah Laut" class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Cek ketersediaan makanan
+        </h4>
+        <p style="font-size: 14px; color: #666">
+         Periksalah ketersediaan makanan dengan hati-hati, makanan yang telah terkontaminasi air genangan tsunami bisa jadi sudah tercemar dan tidak layak konsumsi.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/p3k.jpg" alt="Ilustrasi bantuan P3K"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Bantuan P3K
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Berikan bantuan P3K pada korban luka ringan dan panggil bantuan, mintalah pertolongan evakuasi jika terdapat korban dengan luka serius
+        </p>
+      </div>
+
+       <div class="cause-card">
+        <img src="assets/tenda.jpg" alt="Ilustrasi tenda"
+          class="cause-image" />
+
+        <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Membangun tenda pengungsian
+        </h4>
+        <p style="font-size: 14px; color: #666">
+          Segera membangun tenda pengungsian apabila keadaan rumah sudah tidak memungkinkan untuk di huni atau kembali lah ke tempat pengungsian.
+        </p>
+      </div> 
+    </div>
+-->
+
+    </div>
+
+  </div>
+</body>
+
+</html>
