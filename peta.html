@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIMATSU - Mitigasi Tsunami</title>
+
+  <!-- Font & Leaflet CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    /* --- HEADER --- */
+    .header {
+      background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+      color: white;
+      padding: 20px 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ecefca;
+    }
+
+    .header-title h1 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header-title p {
+      font-size: 12px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-login {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-pimpinan {
+      background: #2c5282;
+      color: white;
+    }
+
+    .btn-admin {
+      background: #ecefca;
+      color: #648db3;
+    }
+
+    /* --- SIDEBAR --- */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 80px;
+      width: 260px;
+      height: calc(100vh - 95px);
+      background: white;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      padding: 20px 0;
+      overflow-y: auto;
+      z-index: 998;
+      transition: all 0.3s;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 25px;
+      color: #555;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border-left: 4px solid transparent;
+    }
+
+    .menu-item:hover {
+      background: #f0f4f8;
+      color: #648db3;
+    }
+
+    .menu-item.active {
+      background: linear-gradient(90deg, #ecefca 0%, rgba(236, 239, 202, 0.3) 100%);
+      color: #648db3;
+      border-left-color: #648db3;
+      font-weight: 600;
+    }
+
+    .menu-icon {
+      font-size: 22px;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .menu-text {
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    /* --- MAIN CONTENT --- */
+    .main-content {
+      margin-left: 260px;
+      margin-top: 85px;
+      min-height: calc(100vh - 85px);
+      padding: 30px;
+    }
+
+    /* --- PETA STYLING --- */
+    #map {
+      height: 550px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="logo">🌊 SIMATSU</div>
+        <div class="header-title">
+          <h1>Sistem Informasi Manajemen Tsunami</h1>
+          <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
+        <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <a class="menu-item" href="simb.html"><span class="menu-icon">🏠</span><span class="menu-text">Dashboard</span></a>
+    <a class="menu-item"><span class="menu-icon">📊</span><span class="menu-text">Data Tsunami</span></a>
+    <a class="menu-item" href="sejarah.html"><span class="menu-icon">📜</span><span class="menu-text">Sejarah Kejadian</span></a>
+    <a class="menu-item" href="penyebab.html"><span class="menu-icon">⚡</span><span class="menu-text">Penyebab</span></a>
+    <a class="menu-item" href="dampak.html"><span class="menu-icon">🚨</span><span class="menu-text">Dampak</span></a>
+    <a class="menu-item" href="mitigasi.html"><span class="menu-icon">🧭</span><span class="menu-text">Mitigasi</span></a>
+    <a class="menu-item"><span class="menu-icon">🎥</span><span class="menu-text">Video Edukasi</span></a>
+    <a class="menu-item active" href="peta.html"><span class="menu-icon">🗺</span><span class="menu-text">Peta Sebaran</span></a>
+  </div>
+
+  
+  <div class="main-content" id="mainContent">
+    <h2 style="color: #2c5282; margin-bottom: 20px;">Peta Persebaran Paleotsunami di Indonesia</h2>
+    <p style="color: #555; line-height: 1.6; margin-bottom: 30px;">
+      Peta sebaran daerah yang pernah terjadi tsunami di Indonesia menampilkan wilayah-wilayah pesisir yang telah terdampak gelombang tsunami akibat aktivitas gempa di dasar laut. Melalui peta ini, masyarakat dapat mengenali daerah rawan, meningkatkan kesiapsiagaan, serta membantu pemerintah dalam perencanaan mitigasi dan penanggulangan bencana secara lebih efektif.
+    </p>
+
+    <!-- PETA INTERAKTIF -->
+  
+    <div id="map"></div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+  <script>
+    // Inisialisasi peta
+    var map = L.map('map').setView([-2.5, 118], 5);
+
+    // Layer dasar peta
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Data titik tsunami (contoh)
+    var lokasiTsunami = [
+      { nama: "Yogyakarta (Bantul)", lat: -7.95, lng: 110.32, tahun: "Prehistorical" },
+      { nama: "Cilacap", lat: -7.72, lng: 109.02, tahun: "Historical" },
+      { nama: "Pacitan", lat: -8.2, lng: 111.1, tahun: "Prehistorical" },
+      { nama: "Padang", lat: -0.95, lng: 100.35, tahun: "Historical" },
+      { nama: "Banda Aceh", lat: 5.55, lng: 95.32, tahun: "2004" },
+      { nama: "Ambon", lat: -3.7, lng: 128.2, tahun: "Prehistorical" },
+      { nama: "Manokwari", lat: -0.87, lng: 134.07, tahun: "Historical" }
+    ];
+
+    // Tambahkan marker untuk setiap lokasi
+    lokasiTsunami.forEach(function (item) {
+      var warna = item.tahun === "Prehistorical" ? "red" : "blue";
+      L.circleMarker([item.lat, item.lng], {
+        radius: 7,
+        fillColor: warna,
+        color: "#555",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      })
+        .bindPopup(`<b>${item.nama}</b><br>Klasifikasi: ${item.tahun}`)
+        .addTo(map);
+    });
+  </script>
+</body>
+
+    </div>
+
+  </div>
+</body>
+
+</html>

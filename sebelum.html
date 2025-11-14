@@ -198,13 +198,7 @@
       padding: 30px;
     }
 
-    .card-container {
-  display: flex;
-  justify-content: flex-start; /* sejajar ke kanan */
-  gap: 20px; /* jarak antar card */
-}
-
-
+    /* Gaya untuk Container Penyebab */
     .cause-card {
       background: white;
       padding: 25px;
@@ -213,7 +207,7 @@
       border-top: 5px solid #648db3;
     }
 
-
+    /* Gaya baru untuk gambar di dalam kartu penyebab */
     .cause-image {
       width: 100%;
       /* Memastikan gambar memenuhi lebar kartu */
@@ -287,53 +281,73 @@
     </a>
   </div>
 
+<!--CONTENT-->
   <div class="main-content" id="mainContent">
-    <h2 style="color: #2c5282; margin-bottom: 20px">
-      Mitigasi Terjadinya Tsunami
-    </h2>
+    <div>
+        <h3 style="color: #2c5282; margin-bottom: 20px">
+      Sebelum Terjadinya Tsunami
+    </h3>
     <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
-      Mitigasi tsunami meliputi berbagai upaya untuk mengurangi risiko dan dampak yang ditimbulkannya, seperti pembangunan sistem peringatan dini, edukasi masyarakat, serta penataan wilayah pesisir yang aman. Langkah-langkah ini penting untuk melindungi jiwa dan meminimalkan kerugian saat bencana terjadi.
+      Persiapan dan pencegahan sebelum tsunami terjadi bertujuan untuk mengurangi risiko dan dampak bencana. Langkah ini mencakup peningkatan kesadaran masyarakat, penyusunan rencana evakuasi, serta pemahaman terhadap prosedur tanggap darurat agar masyarakat dapat bertindak cepat dan tepat saat terjadi ancaman tsunami.
     </p>
+    <div style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        ">
+      <div class="cause-card">
+        <img src="assets/tandatsunami.jpg" alt="Ilustrasi tanda tanda tsunami"
+          class="cause-image" />
 
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Ketahui tanda-tanda peringatan tsunami
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          naik atau turunnya air pantai dengan cepat, gemuruh keras dari laut, atau gemuruh gempa bumi
+        </p>
+      </div>
 
-<div class="card-container">
-  <div class="card" style="width: 18rem;">
-    <img src="assets/sebelum.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Sebelum Terjadi Tsunami</h5>
-      <p class="card-text">Persiapan dan Pencegahan Sebelum Tsunami Terjadi</p>
-      <a href="sebelum.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
+      <div class="cause-card">
+        <img src="assets/pusatresmi.jpg" alt="ilustrasi pusat informasi resmi"
+          alt="Ilustrasi pusat resmi informasi" class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Mengetahui pusat informasi dan Sistem peringatan dini
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          BPBD, BMKG, PVMBG dan instansi lainnya. Sirene, SMS broadcast, radio/TOA.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="" alt="Ilustrasi pemetaan rute"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Pemetaan rute evakuasi
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Mengenali tempat tempat di sekitar daerah tersebut
+Menyusun jalur/rute evakuasi resmi beserta penanda, titik kumpul, dan lokasi tempat tinggi/aman.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/sosialisasi.jpg" alt="Ilustrasi Sosialiasi"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Sosialiasi dan Edukasi kepada masyarakat
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Mengedukasi masyarakat tentang tanda-tanda tsunami
+Sosialisasi secara rutin
+        </p>
+      </div>
     </div>
-  </div>
-
-  <div class="card" style="width: 18rem;">
-    <img src="assets/saat.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Saat Terjadi Tsunami</h5>
-      <p class="card-text">Langkah-langkah Penyelamtan Saat Tsunami</p>
-      <a href="saat.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
     </div>
-  </div>
 
-  <div class="card" style="width: 18rem;">
-    <img src="assets/setelah.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Setelah Terjadi Tsunami</h5>
-      <p class="card-text">Pemulihan dan Rehabilitasi Pasca Tsunami</p>
-      <a href="setelah.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
-    </div>
-  </div>
-</div>
-
-
-
-    </div>
+        </div>
 
   </div>
 </body>

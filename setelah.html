@@ -198,13 +198,7 @@
       padding: 30px;
     }
 
-    .card-container {
-  display: flex;
-  justify-content: flex-start; /* sejajar ke kanan */
-  gap: 20px; /* jarak antar card */
-}
-
-
+    /* Gaya untuk Container Penyebab */
     .cause-card {
       background: white;
       padding: 25px;
@@ -213,7 +207,7 @@
       border-top: 5px solid #648db3;
     }
 
-
+    /* Gaya baru untuk gambar di dalam kartu penyebab */
     .cause-image {
       width: 100%;
       /* Memastikan gambar memenuhi lebar kartu */
@@ -247,7 +241,7 @@
       </div>
       <div class="header-right">
         <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
-        <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+        <a href="loginadmin.php" class="btn-login btn-admin">🧑‍💼 Login Admin</a>
       </div>
     </div>
   </div>
@@ -287,53 +281,71 @@
     </a>
   </div>
 
+<!--CONTENT-->
   <div class="main-content" id="mainContent">
-    <h2 style="color: #2c5282; margin-bottom: 20px">
-      Mitigasi Terjadinya Tsunami
-    </h2>
+    <div>
+        <h3 style="color: #2c5282; margin-bottom: 20px">
+      Setelah Terjadinya Tsunami
+    </h3>
     <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
-      Mitigasi tsunami meliputi berbagai upaya untuk mengurangi risiko dan dampak yang ditimbulkannya, seperti pembangunan sistem peringatan dini, edukasi masyarakat, serta penataan wilayah pesisir yang aman. Langkah-langkah ini penting untuk melindungi jiwa dan meminimalkan kerugian saat bencana terjadi.
+      Mitigasi setelah tsunami terjadi berfokus pada pemulihan kondisi masyarakat dan pengurangan risiko bencana di masa mendatang. Upaya ini dilakukan untuk mempercepat rehabilitasi wilayah terdampak, memulihkan layanan penting, serta memperkuat ketahanan agar masyarakat lebih siap menghadapi potensi tsunami berikutnya.
     </p>
+    <div style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        ">
+      <div class="cause-card">
+        <img src="" alt="Ilustrasi menjauhi tempat rusak"
+          class="cause-image" />
 
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Menjauhi tempat rusak
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Jauhi area yang rusak atau banjir dan kabel listrik yang putus.
+        </p>
+      </div>
 
-<div class="card-container">
-  <div class="card" style="width: 18rem;">
-    <img src="assets/sebelum.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Sebelum Terjadi Tsunami</h5>
-      <p class="card-text">Persiapan dan Pencegahan Sebelum Tsunami Terjadi</p>
-      <a href="sebelum.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
+      <div class="cause-card">
+        <img src="assets/cekketersediaan.jpg" alt="ilustrasi pusat informasi resmi"
+          alt="Ilustrasi pusat resmi informasi" class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Cek ketersediaan makanan
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Periksalah ketersediaan makanan dengan hati-hati, makanan yang telah terkontaminasi air genangan tsunami bisa jadi sudah tercemar dan tidak layak konsumsi.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/p3k.jpg" alt="Ilustrasi pemetaan rute"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Bantuan P3K
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Berikan bantuan P3K pada korban luka ringan dan panggil bantuan, mintalah pertolongan evakuasi jika terdapat korban dengan luka serius.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/tenda.jpg" alt="Ilustrasi Sosialiasi"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Membangun tenda pengungsian
+        </h3>
+        <p style="font-size: 14px; color: #666">
+         Segera membangun tenda pengungsian apabila keadaan rumah sudah tidak memungkinkan untuk di huni atau kembali lah ke tempat pengungsian.
+        </p>
+      </div>
     </div>
-  </div>
-
-  <div class="card" style="width: 18rem;">
-    <img src="assets/saat.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Saat Terjadi Tsunami</h5>
-      <p class="card-text">Langkah-langkah Penyelamtan Saat Tsunami</p>
-      <a href="saat.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
     </div>
-  </div>
 
-  <div class="card" style="width: 18rem;">
-    <img src="assets/setelah.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Setelah Terjadi Tsunami</h5>
-      <p class="card-text">Pemulihan dan Rehabilitasi Pasca Tsunami</p>
-      <a href="setelah.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
-    </div>
-  </div>
-</div>
-
-
-
-    </div>
+        </div>
 
   </div>
 </body>

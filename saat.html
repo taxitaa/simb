@@ -198,13 +198,7 @@
       padding: 30px;
     }
 
-    .card-container {
-  display: flex;
-  justify-content: flex-start; /* sejajar ke kanan */
-  gap: 20px; /* jarak antar card */
-}
-
-
+    /* Gaya untuk Container Penyebab */
     .cause-card {
       background: white;
       padding: 25px;
@@ -213,7 +207,7 @@
       border-top: 5px solid #648db3;
     }
 
-
+    /* Gaya baru untuk gambar di dalam kartu penyebab */
     .cause-image {
       width: 100%;
       /* Memastikan gambar memenuhi lebar kartu */
@@ -287,53 +281,97 @@
     </a>
   </div>
 
+<!--CONTENT-->
   <div class="main-content" id="mainContent">
-    <h2 style="color: #2c5282; margin-bottom: 20px">
-      Mitigasi Terjadinya Tsunami
-    </h2>
+    <div>
+        <h3 style="color: #2c5282; margin-bottom: 20px">
+      Saat Terjadinya Tsunami
+    </h3>
     <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
-      Mitigasi tsunami meliputi berbagai upaya untuk mengurangi risiko dan dampak yang ditimbulkannya, seperti pembangunan sistem peringatan dini, edukasi masyarakat, serta penataan wilayah pesisir yang aman. Langkah-langkah ini penting untuk melindungi jiwa dan meminimalkan kerugian saat bencana terjadi.
+      Saat tsunami terjadi berfokus pada tindakan cepat untuk menyelamatkan jiwa dan meminimalkan dampak langsung bencana. Upaya ini melibatkan pelaksanaan prosedur evakuasi, penyebaran informasi darurat, serta pengaturan langkah-langkah keselamatan di area rawan agar masyarakat dapat berpindah ke tempat yang lebih aman dan terhindar dari ancaman gelombang tsunami.
     </p>
+    <div style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 25px;
+        ">
+      <div class="cause-card">
+        <img src="assets/lariketinggi.jpg" alt="Ilustrasi lari ke tempat tinggi"
+          class="cause-image" />
 
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Lari ke Tempat Tinggi Segera
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Segera menuju tempat tinggi jika terjadi gempa di pantai disertai air laut surut, ikuti rute evakuasi resmi.
+        </p>
+      </div>
 
-<div class="card-container">
-  <div class="card" style="width: 18rem;">
-    <img src="assets/sebelum.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Sebelum Terjadi Tsunami</h5>
-      <p class="card-text">Persiapan dan Pencegahan Sebelum Tsunami Terjadi</p>
-      <a href="sebelum.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
+      <div class="cause-card">
+        <img src="" alt="ilustrasi tetap dilaut"
+          alt="Ilustrasi pusat resmi informasi" class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Tetap di laut, jangan ke pantai
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Jika berada di kapal/perahu tetap d tengah laut, jangan mendekat ke pantai.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/susulan.jpg" alt="Ilustrasi Gelombang Susulan"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Waspadai gelombang susulan
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Jangan kembali ke tempat rendah, karena gelombang berikutnya bisa lebih berbahaya.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="" alt="Ilustrasi Selamatkan diri"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Tinggalkan kendaraan, selamatkan diri
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Jika sedang menyetir, tinggalkan kendaraan dan segera mencari tempat tinggi yang aman.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/saring.jpg" alt="Ilustrasi Saring Informasi"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Ikuti arahan resmi, saring informasi
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Mengungsi sesuai arahan pihak berwenang, hindari informasi dari sumber tidak jelas.
+        </p>
+      </div>
+
+      <div class="cause-card">
+        <img src="assets/bantusesama.jpeg" alt="Ilustrasi Bantu Sesama"
+          class="cause-image" />
+
+        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
+          Utamakan nyawa, bantu sesama
+        </h3>
+        <p style="font-size: 14px; color: #666">
+          Utamakan keselamatan, tinggalkan barang tidak penting, pastikan anggota keluarga aman, dan bantu orang sekitar untuk menyelamatkan diri.
+        </p>
+      </div>
+
+      
     </div>
-  </div>
-
-  <div class="card" style="width: 18rem;">
-    <img src="assets/saat.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Saat Terjadi Tsunami</h5>
-      <p class="card-text">Langkah-langkah Penyelamtan Saat Tsunami</p>
-      <a href="saat.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
     </div>
-  </div>
 
-  <div class="card" style="width: 18rem;">
-    <img src="assets/setelah.png" class="card-img-top" alt="...">
-    <div class="card-body">
-      <center>
-      <h5 class="card-title">Setelah Terjadi Tsunami</h5>
-      <p class="card-text">Pemulihan dan Rehabilitasi Pasca Tsunami</p>
-      <a href="setelah.html" class="btn btn-primary">Pelajari Selengkapnya</a>
-      </center>
-    </div>
-  </div>
-</div>
-
-
-
-    </div>
+        </div>
 
   </div>
 </body>
