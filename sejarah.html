@@ -1,346 +1,369 @@
 <!DOCTYPE html>
 <html lang="id">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMATSU - Sejarah Kejadian Tsunami</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    />
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: "Poppins", sans-serif;
-            background: #f5f7fa;
-            color: #333;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f7fa;
+        color: #333;
+      }
 
-        /* --- HEADER STYLES --- */
-        .header {
-            background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
-            color: white;
-            padding: 20px 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+      /* --- HEADER STYLES --- */
+      .header {
+        background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+        color: white;
+        padding: 20px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ecefca;
-        }
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: #ecefca;
+      }
 
-        .header-title h1 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
+      .header-title h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
 
-        .header-title p {
-            font-size: 12px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+      }
 
-        .header-right {
-            display: flex;
-            gap: 15px;
-        }
+      .header-right {
+        display: flex;
+        gap: 15px;
+      }
 
-        .btn-login {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+      .btn-login {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-        .btn-pimpinan {
-            background: #2c5282;
-            color: white;
-        }
+      .btn-pimpinan {
+        background: #2c5282;
+        color: white;
+      }
 
-        .btn-admin {
-            background: #ecefca;
-            color: #648db3;
-        }
+      .btn-admin {
+        background: #ecefca;
+        color: #648db3;
+      }
 
-        /* --- SIDEBAR STYLES --- */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 80px;
-            width: 260px;
-            height: calc(100vh - 95px);
-            background: white;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-            padding: 20px 0;
-            overflow-y: auto;
-            z-index: 998;
-            transition: all 0.3s;
-        }
+      /* --- SIDEBAR STYLES --- */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 80px;
+        width: 260px;
+        height: calc(100vh - 95px);
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        padding: 20px 0;
+        overflow-y: auto;
+        z-index: 998;
+        transition: all 0.3s;
+      }
 
-        .sidebar.mobile-open {
-            transform: translateX(0);
-        }
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
 
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
 
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
+      .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #648db3;
-            border-radius: 10px;
-        }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: #648db3;
+        border-radius: 10px;
+      }
 
-        /* Sembunyikan tombol menu toggle di desktop */
+      /* Sembunyikan tombol menu toggle di desktop */
+      .menu-toggle {
+        display: none;
+      }
+
+      /* Tampilkan hanya di layar kecil (mobile) */
+      @media (max-width: 768px) {
         .menu-toggle {
-            display: none;
+          display: block;
+          position: fixed;
+          top: 110px;
+          left: 15px;
+          font-size: 24px;
+          background: white;
+          border: none;
+          padding: 8px 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          z-index: 999;
         }
+      }
 
-        /* Tampilkan hanya di layar kecil (mobile) */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 110px;
-                left: 15px;
-                font-size: 24px;
-                background: white;
-                border: none;
-                padding: 8px 12px;
-                border-radius: 8px;
-                cursor: pointer;
-                z-index: 999;
-            }
-        }
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 25px;
+        color: #555;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-left: 4px solid transparent;
+      }
 
+      .menu-item:hover {
+        background: #f0f4f8;
+        color: #648db3;
+      }
 
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 25px;
-            color: #555;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border-left: 4px solid transparent;
-        }
+      .menu-item.active {
+        background: linear-gradient(
+          90deg,
+          #ecefca 0%,
+          rgba(236, 239, 202, 0.3) 100%
+        );
+        color: #648db3;
+        border-left-color: #648db3;
+        font-weight: 600;
+      }
 
-        .menu-item:hover {
-            background: #f0f4f8;
-            color: #648db3;
-        }
+      .menu-icon {
+        font-size: 22px;
+        min-width: 30px;
+        text-align: center;
+      }
 
-        .menu-item.active {
-            background: linear-gradient(90deg,
-                    #ecefca 0%,
-                    rgba(236, 239, 202, 0.3) 100%);
-            color: #648db3;
-            border-left-color: #648db3;
-            font-weight: 600;
-        }
+      .menu-text {
+        font-size: 15px;
+        white-space: nowrap;
+      }
 
-        .menu-icon {
-            font-size: 22px;
-            min-width: 30px;
-            text-align: center;
-        }
+      /* --- MAIN CONTENT --- */
+      .main-content {
+        margin-left: 260px;
+        margin-top: 85px;
+        padding: 30px;
+        min-height: calc(100vh - 85px);
+        background: #f7f9fb;
+      }
 
-        .menu-text {
-            font-size: 15px;
-            white-space: nowrap;
-        }
+      /* GRID CARD BOX */
+      .tsunami-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+      }
 
-        /* --- MAIN CONTENT --- */
-        .main-content {
-            margin-left: 260px;
-            margin-top: 85px;
-            padding: 30px;
-            min-height: calc(100vh - 85px);
-            background: #f7f9fb;
-        }
+      /* CARD STYLE */
+      .tsunami-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
 
-        /* GRID CARD BOX */
-        .tsunami-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-        }
+      .tsunami-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
 
-        /* CARD STYLE */
-        .tsunami-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
+      /* IMAGE */
+      .tsunami-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
 
-        .tsunami-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
+      /* CARD BODY */
+      .tsunami-card .content {
+        padding: 18px 20px;
+      }
 
-        /* IMAGE */
-        .tsunami-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+      .tsunami-card h5 {
+        font-size: 17px;
+        font-weight: 600;
+        color: #2c5282;
+        margin-bottom: 8px;
+      }
 
-        /* CARD BODY */
-        .tsunami-card .content {
-            padding: 18px 20px;
-        }
-
-        .tsunami-card h5 {
-            font-size: 17px;
-            font-weight: 600;
-            color: #2c5282;
-            margin-bottom: 8px;
-        }
-
-        .tsunami-card p {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #444;
-            text-align: justify;
-        }
+      .tsunami-card p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #444;
+        text-align: justify;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="header">
-        <div class="header-content">
-            <div class="header-left">
-                <div class="logo">🌊 SIMATSU</div>
-                <div class="header-title">
-                    <h1>Sistem Informasi Manajemen Tsunami</h1>
-                    <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
-                <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
-            </div>
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo">🌊 SIMATSU</div>
+          <div class="header-title">
+            <h1>Sistem Informasi Manajemen Tsunami</h1>
+            <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+          </div>
         </div>
+        <div class="header-right">
+          <button class="btn-login btn-pimpinan">🔐 Login Pimpinan</button>
+          <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
+        </div>
+      </div>
     </div>
 
     <div class="sidebar" id="sidebar">
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-        <a class="menu-item" href="simb.html">
-            <span class="menu-icon">🏠</span>
-            <span class="menu-text">Dashboard</span>
-        </a>
-        <a class="menu-item" onclick="showPage('data')">
-            <span class="menu-icon">📊</span>
-            <span class="menu-text">Data Tsunami</span>
-        </a>
-        <a class="menu-item active" href="sejarah.html">
-            <span class="menu-icon">📜</span>
-            <span class="menu-text">Sejarah Kejadian</span>
-        </a>
-        <a class="menu-item" href="penyebab.html">
-            <span class="menu-icon">⚡</span>
-            <span class="menu-text">Penyebab</span>
-        </a>
-        <a class="menu-item" href="dampak.html">
-            <span class="menu-icon">🚨</span>
-            <span class="menu-text">Dampak</span>
-        </a>
-        <a class="menu-item" href="mitigasi.html">
-            <span class="menu-icon">🧭</span>
-            <span class="menu-text">Mitigasi</span>
-        </a>
-        <a class="menu-item" onclick="showPage('video')">
-            <span class="menu-icon">🎥</span>
-            <span class="menu-text">Video Edukasi</span>
-        </a>
-        <a class="menu-item" onclick="showPage('peta')">
-            <span class="menu-icon">🗺</span>
-            <span class="menu-text">Peta Sebaran</span>
-        </a>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <a class="menu-item" href="simb.html">
+        <span class="menu-icon">🏠</span>
+        <span class="menu-text">Dashboard</span>
+      </a>
+      <a class="menu-item" href="data.php">
+        <span class="menu-icon">📊</span>
+        <span class="menu-text">Data Tsunami</span>
+      </a>
+      <a class="menu-item active" href="sejarah.html">
+        <span class="menu-icon">📜</span>
+        <span class="menu-text">Sejarah Kejadian</span>
+      </a>
+      <a class="menu-item" href="penyebab.html">
+        <span class="menu-icon">⚡</span>
+        <span class="menu-text">Penyebab</span>
+      </a>
+      <a class="menu-item" href="dampak.html">
+        <span class="menu-icon">🚨</span>
+        <span class="menu-text">Dampak</span>
+      </a>
+      <a class="menu-item" href="mitigasi.html">
+        <span class="menu-icon">🧭</span>
+        <span class="menu-text">Mitigasi</span>
+      </a>
+      <a class="menu-item" onclick="showPage('video')">
+        <span class="menu-icon">🎥</span>
+        <span class="menu-text">Video Edukasi</span>
+      </a>
+      <a class="menu-item" onclick="showPage('peta')">
+        <span class="menu-icon">🗺</span>
+        <span class="menu-text">Peta Sebaran</span>
+      </a>
     </div>
     <div class="main-content">
-        <h2 style="margin-bottom: 20px; color:#2c5282;">Sejarah Kejadian Tsunami di Dunia</h2>
+      <h2 style="margin-bottom: 20px; color: #2c5282">
+        Sejarah Kejadian Tsunami di Dunia
+      </h2>
 
-        <div class="tsunami-grid">
-            <div class="tsunami-card">
-                <img src="assets/palu.jpg" alt="tsunami palu">
-                <div class="content">
-                    <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
-                    <p>Pada tanggal 28 September 2018, terjadi gempa bumi bermagnitudo 7,4 mengguncang Kota Palu dan
-                        Donggala. Pusat Gempa ada pada kedalaman 10 km, jaraknya ada di 27 km sebelah timur laut
-                        Donggala. Hal ini memicu tsunami setinggi hampir 6 meter dengan kecepatan 800km/jam.</p>
-                </div>
-            </div>
-
-            <div class="tsunami-card">
-                <img src="assets/aceh.jpg" alt="tsunami aceh">
-                <div class="content">
-                    <h5>Tsunami Aceh, Indonesia (2004)</h5>
-                    <p>Pata tanggal 26 Desember 2004, terjadi gempa bumi yang begitu besar di lepas pantai Sumatra
-                        dengan kekuatan 9,1 Skala Richter yang menyebabkan retakan di dasar laut sepanjang 1.300
-                        kilometer. Retakan itu membuat isi dasar laut terangkat dan menciptakan gelombang air atau
-                        tsunami dengan ketinggian mencapai 50 meter, setinggi gedung 10-15 lantai.</p>
-                </div>
-            </div>
-
-            <div class="tsunami-card">
-                <img src="assets/jepang.jpg" alt="tsunami jepang">
-                <div class="content">
-                    <h5>Tsunami Pulau Honshu, Jepang (2011)</h5>
-                    <p>Pada tanggal 11 Maret 2011, terjadi gempa bumi berkekuatan 9,0 Skala Richter di lepas pantai
-                        timur laut Pulau Honshu, Jepang, yang memicu terjadinya tsunami dengan ketinggian hingga 40,5
-                        meter dengan kecepatan hingga 700 km/jam.</p>
-                </div>
-            </div>
-
-            <div class="tsunami-card">
-                <img src="assets/selatsunda.jpg" alt="tsunami selat sunda">
-                <div class="content">
-                    <h5>Tsunami Selat Sunda (2018)</h5>
-                    <p>Pada tanggal 22 Desember 2018, peristiwa tsunami yang disebabkan oleh letusan Anak Krakatau di
-                        Selat Sunda menghantam daerah pesisir Banten dan Lampung, Indonesia. Sedikitnya 426 orang tewas,
-                        7.202 terluka dan 23 orang hilang akibat peristiwa ini.</p>
-                </div>
-            </div>
+      <div class="tsunami-grid">
+        <div class="tsunami-card">
+          <img src="assets/palu.jpg" alt="tsunami palu" />
+          <div class="content">
+            <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
+            <p>
+              Pada tanggal 28 September 2018, terjadi gempa bumi bermagnitudo
+              7,4 mengguncang Kota Palu dan Donggala. Pusat Gempa ada pada
+              kedalaman 10 km, jaraknya ada di 27 km sebelah timur laut
+              Donggala. Hal ini memicu tsunami setinggi hampir 6 meter dengan
+              kecepatan 800km/jam.
+            </p>
+          </div>
         </div>
+
+        <div class="tsunami-card">
+          <img src="assets/aceh.jpg" alt="tsunami aceh" />
+          <div class="content">
+            <h5>Tsunami Aceh, Indonesia (2004)</h5>
+            <p>
+              Pata tanggal 26 Desember 2004, terjadi gempa bumi yang begitu
+              besar di lepas pantai Sumatra dengan kekuatan 9,1 Skala Richter
+              yang menyebabkan retakan di dasar laut sepanjang 1.300 kilometer.
+              Retakan itu membuat isi dasar laut terangkat dan menciptakan
+              gelombang air atau tsunami dengan ketinggian mencapai 50 meter,
+              setinggi gedung 10-15 lantai.
+            </p>
+          </div>
+        </div>
+
+        <div class="tsunami-card">
+          <img src="assets/jepang.jpg" alt="tsunami jepang" />
+          <div class="content">
+            <h5>Tsunami Pulau Honshu, Jepang (2011)</h5>
+            <p>
+              Pada tanggal 11 Maret 2011, terjadi gempa bumi berkekuatan 9,0
+              Skala Richter di lepas pantai timur laut Pulau Honshu, Jepang,
+              yang memicu terjadinya tsunami dengan ketinggian hingga 40,5 meter
+              dengan kecepatan hingga 700 km/jam.
+            </p>
+          </div>
+        </div>
+
+        <div class="tsunami-card">
+          <img src="assets/selatsunda.jpg" alt="tsunami selat sunda" />
+          <div class="content">
+            <h5>Tsunami Selat Sunda (2018)</h5>
+            <p>
+              Pada tanggal 22 Desember 2018, peristiwa tsunami yang disebabkan
+              oleh letusan Anak Krakatau di Selat Sunda menghantam daerah
+              pesisir Banten dan Lampung, Indonesia. Sedikitnya 426 orang tewas,
+              7.202 terluka dan 23 orang hilang akibat peristiwa ini.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
+  </body>
+</html>

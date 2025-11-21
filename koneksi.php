@@ -4,9 +4,9 @@ $user = "root";
 $pass = "";
 $db   = "simatsu_db"; 
 
-$conn = mysqli_connect($host, $user, $pass, $db);
+$koneksi = mysqli_connect($host, $user, $pass, $db);
 
-if (!$conn) {
+if (!$koneksi) {
   die("Koneksi gagal: " . mysqli_connect_error());
 }
 ?>

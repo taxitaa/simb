@@ -3,10 +3,10 @@ session_start();
 include 'koneksi.php';
 
 if (isset($_POST['login'])) {
-  $username = mysqli_real_escape_string($conn, $_POST['username']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
+  $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+  $password = mysqli_real_escape_string($koneksi, $_POST['password']);
 
-  $query = mysqli_query($conn, "SELECT * FROM admin WHERE username='$username' AND password='$password'");
+  $query = mysqli_query($koneksi, "SELECT * FROM admin WHERE username='$username' AND password='$password'");
   $cek = mysqli_num_rows($query);
 
   if ($cek > 0) {
