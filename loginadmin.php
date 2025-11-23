@@ -11,7 +11,7 @@ if (isset($_POST['login'])) {
 
   if ($cek > 0) {
     $_SESSION['admin'] = $username;
-    header("Location: dashboard-admin.php");
+    header("Location: pageadmin.php");
     exit();
   } else {
     $error = "Username atau password salah!";
