@@ -151,7 +151,19 @@ if (!$json_jumlah) $json_jumlah = '[]';
     <div class="header">
       <div class="header-content">
         <div class="header-left">
-          <div class="logo">🌊 SIMATSU</div>
+          <div
+            class="logo"
+            style="display: flex; align-items: center; gap: 10px"
+          >
+            <img
+              src="assets/logosimbb.png"
+              alt="Logo SIMATSU"
+              style="height: 50px; width: auto"
+            />
+            <span style="font-weight: 700; color: #ecefca; font-size: 28px"
+              >SIMATSU</span
+            >
+          </div>
           <div class="header-title">
             <h1>Sistem Informasi Manajemen Tsunami</h1>
             <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
@@ -166,28 +178,28 @@ if (!$json_jumlah) $json_jumlah = '[]';
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <!-- <button class="menu-toggle" onclick="toggleSidebar()">☰</button> -->
-      <a href="simb.html" class="menu-item">
+      <a href="simb.html" class="menu-item" href="simb.html">
         <span class="menu-icon">🏠</span><span class="menu-text">Dashboard</span>
       </a>
-      <a href="data.php" class="menu-item active">
+      <a href="data.php" class="menu-item active" href="data.php">
         <span class="menu-icon">📊</span><span class="menu-text">Data Tsunami</span>
       </a>
-      <a href="sejarah.html" class="menu-item">
+      <a href="sejarah.html" class="menu-item" href="sejarah.html">
         <span class="menu-icon">📜</span><span class="menu-text">Sejarah Kejadian</span>
       </a>
-      <a href="penyebab.html" class="menu-item">
+      <a href="penyebab.html" class="menu-item" href="penyebab.html">
         <span class="menu-icon">⚡</span><span class="menu-text">Penyebab</span>
       </a>
-      <a href="dampak.html" class="menu-item">
+      <a href="dampak.html" class="menu-item" href="dampak.html">
         <span class="menu-icon">🚨</span><span class="menu-text">Dampak</span>
       </a>
-      <a href="mitigasi.html" class="menu-item">
+      <a href="mitigasi.html" class="menu-item" href="mitigasi.html">
         <span class="menu-icon">🧭</span><span class="menu-text">Mitigasi</span>
       </a>
-      <a href="video.html" class="menu-item">
+      <a href="video.html" class="menu-item" href="videoedukasi.html">
         <span class="menu-icon">🎥</span><span class="menu-text">Video Edukasi</span>
       </a>
-      <a href="peta.html" class="menu-item">
+      <a href="peta.html" class="menu-item" href="peta.html">
         <span class="menu-icon">🗺</span><span class="menu-text">Peta Sebaran</span>
       </a>
     </div>
