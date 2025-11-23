@@ -157,6 +157,9 @@ if (!$json_jumlah) $json_jumlah = '[]';
             <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
           </div>
         </div>
+        <div class="header-right">
+          <a href="loginadmin.php" class="btn-login btn-admin">🧑‍💼 Login Admin</a>
+        </div>
       </div>
     </div>
 
