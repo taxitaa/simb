@@ -165,7 +165,7 @@ if (!$json_jumlah) $json_jumlah = '[]';
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <!-- <button class="menu-toggle" onclick="toggleSidebar()">☰</button> -->
       <a href="simb.html" class="menu-item">
         <span class="menu-icon">🏠</span><span class="menu-text">Dashboard</span>
       </a>
