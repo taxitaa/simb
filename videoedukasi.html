@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIMATSU - Video Edukasi</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Style yang sudah ada dari file lain */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f7fa;
+        color: #333;
+      }
+
+      /* --- HEADER STYLES --- */
+      .header {
+        background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
+        color: white;
+        padding: 20px 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: #ecefca;
+      }
+
+      .header-title h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .header-right {
+        display: flex;
+        gap: 15px;
+      }
+
+      .btn-login {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-admin {
+        background: #ecefca;
+        color: #648db3;
+      }
+
+      /* --- SIDEBAR STYLES --- */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 80px;
+        width: 260px;
+        height: calc(100vh - 95px);
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        padding: 20px 0;
+        overflow-y: auto;
+        z-index: 998;
+        transition: all 0.3s;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 25px;
+        color: #555;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+        border-left: 4px solid transparent;
+      }
+
+      .menu-item:hover {
+        background: #f0f4f8;
+        color: #648db3;
+      }
+
+      .menu-item.active {
+        background: linear-gradient(
+          90deg,
+          #ecefca 0%,
+          rgba(236, 239, 202, 0.3) 100%
+        );
+        color: #648db3;
+        border-left-color: #648db3;
+        font-weight: 600;
+      }
+
+      .menu-icon {
+        font-size: 22px;
+        min-width: 30px;
+        text-align: center;
+      }
+
+      .menu-text {
+        font-size: 15px;
+        white-space: nowrap;
+      }
+
+      /* --- MAIN CONTENT --- */
+      .main-content {
+        margin-left: 260px;
+        margin-top: 85px;
+        padding: 30px;
+        min-height: calc(100vh - 85px);
+        background: #f7f9fb;
+      }
+
+      /* Video Card Styles */
+      .video-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s;
+        max-width: 800px; /* Batasi lebar kartu video */
+        margin: 0 auto; /* Tengah di halaman */
+      }
+
+      .video-card:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* Rasio 16:9 */
+        height: 0;
+        overflow: hidden;
+      }
+
+      .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .video-info {
+        padding: 20px;
+      }
+
+      .video-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2c5282;
+        margin-bottom: 10px;
+      }
+
+      .video-desc {
+        font-size: 15px;
+        color: #666;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo">🌊 SIMATSU</div>
+          <div class="header-title">
+            <h1>Sistem Informasi Manajemen Tsunami</h1>
+            <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <a href="loginadmin.php"
+            ><button class="btn-login btn-admin">🧑‍💼 Login Admin</button></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <a class="menu-item" href="simb.html">
+        <span class="menu-icon">🏠</span>
+        <span class="menu-text">Dashboard</span>
+      </a>
+      <a class="menu-item" href="data.php">
+        <span class="menu-icon">📊</span>
+        <span class="menu-text">Data Tsunami</span>
+      </a>
+      <a class="menu-item" href="sejarah.html">
+        <span class="menu-icon">📜</span>
+        <span class="menu-text">Sejarah Kejadian</span>
+      </a>
+      <a class="menu-item" href="penyebab.html">
+        <span class="menu-icon">⚡</span>
+        <span class="menu-text">Penyebab</span>
+      </a>
+      <a class="menu-item" href="dampak.html">
+        <span class="menu-icon">🚨</span>
+        <span class="menu-text">Dampak</span>
+      </a>
+      <a class="menu-item" href="mitigasi.html">
+        <span class="menu-icon">🧭</span>
+        <span class="menu-text">Mitigasi</span>
+      </a>
+      <a class="menu-item active" href="video.html">
+        <span class="menu-icon">🎥</span>
+        <span class="menu-text">Video Edukasi</span>
+      </a>
+      <a class="menu-item" href="peta.html">
+        <span class="menu-icon">🗺</span>
+        <span class="menu-text">Peta Sebaran</span>
+      </a>
+    </div>
+    <div class="main-content">
+      <h2 style="margin-bottom: 30px; color: #2c5282; text-align: center">
+        Tonton & Pelajari: Video Edukasi Kesiapsiagaan Tsunami
+      </h2>
+
+      <div class="video-card">
+        <div class="video-wrapper">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/YXpIW3GoGco" 
+            title="Video: Mitigasi Menghadapi Tsunami"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-info">
+          <div class="video-title">
+            Mitigasi Menghadapi Tsunami
+          </div>
+          <div class="video-desc">
+            Video dari BMKG ini menjelaskan tiga langkah utama tanggap tsunami:
+            <ol>
+              <li>
+                **Tanggap Gempa Bumi:** Waspada ketika terjadi gempa bumi kuat atau gempa lemah yang guncangannya dirasakan lebih dari satu menit, karena dapat memicu tsunami [00:00:34].
+              </li>
+              <li>
+                **Tanggap Peringatan & Evakuasi:** Jika mendapatkan peringatan tsunami, segera lakukan evakuasi sesuai rute ke tempat yang tinggi dan aman [00:00:59].
+              </li>
+              <li>
+                **Pasca Bencana:** Pastikan ancaman tsunami sudah berakhir dari informasi BMKG, jauh area tergenang, dan utamakan keselamatan [00:01:46].
+              </li>
+            </ol>
+            Masyarakat juga harus menyelaraskan rencana kedaruratan keluarga dengan lingkungan dan berpartisipasi dalam pelatihan/simulasi evakuasi [00:01:24].
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
