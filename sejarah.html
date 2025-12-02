@@ -1,329 +1,449 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <!-- 
+      [META DATA]
+      Pengaturan dasar halaman web.
+    -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMATSU - Sejarah Kejadian Tsunami</title>
 
+    <!-- [FONTS] Google Fonts Poppins -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
+    <!-- [ICONS] Font Awesome untuk ikon menu yang lebih modern -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- [LIBRARY] Leaflet CSS (Jika dibutuhkan untuk peta di masa depan) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
     />
 
     <style>
+      /* =================================================================
+         BAGIAN CSS (TAMPILAN MODERN)
+         Diambil dari desain data.php agar konsisten
+      ================================================================= */
+
+      :root {
+        /* Variabel Warna Utama */
+        --primary-dark: #005f99;
+        --primary-main: #0088cc;
+        --primary-light: #e0f7fa;
+        --accent: #ffd700;
+
+        /* Variabel Teks & Background */
+        --text-dark: #2c3e50;
+        --text-grey: #607d8b;
+        --bg-body: #f4f9fc;
+
+        /* Variabel Efek Visual */
+        --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+        /* Dimensi Layout */
+        --sidebar-width: 260px;
+        --header-height: 80px;
+        --stats-bar-height: 50px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
         font-family: "Poppins", sans-serif;
-        background: #f5f7fa;
-        color: #333;
+        background-color: var(--bg-body);
+        color: var(--text-dark);
+        overflow-x: hidden;
       }
 
-      /* --- HEADER STYLES --- */
-      .header {
-        background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
-        color: white;
-        padding: 20px 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-      }
-
-      .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1600px;
-        margin: 0 auto;
-      }
-
-      .header-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-
-      .logo {
-        font-size: 28px;
-        font-weight: 700;
-        color: #ecefca;
-      }
-
-      .header-title h1 {
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 5px;
-      }
-
-      .header-title p {
-        font-size: 12px;
-        opacity: 0.9;
-        font-weight: 300;
-      }
-
-      .header-right {
-        display: flex;
-        gap: 15px;
-      }
-
-      .btn-login {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .btn-pimpinan {
-        background: #2c5282;
-        color: white;
-      }
-
-      .btn-admin {
-        background: #ecefca;
-        color: #648db3;
-      }
-
-      /* --- SIDEBAR STYLES --- */
+      /* --- 1. SIDEBAR STYLE (Kiri Tetap) --- */
       .sidebar {
         position: fixed;
         left: 0;
-        top: 80px;
-        width: 260px;
-        height: calc(100vh - 95px);
+        top: 0;
+        bottom: 0;
+        width: var(--sidebar-width);
         background: white;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        padding: 20px 0;
+        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
+        z-index: 1002;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+      }
+      .sidebar-logo {
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .logo-img {
+        height: 40px;
+        width: auto;
+        margin-right: 12px;
+      }
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary-main);
+        letter-spacing: -1px;
+      }
+      .sidebar-menu {
+        padding: 20px 15px;
         overflow-y: auto;
-        z-index: 998;
-        transition: all 0.3s;
-      }
-
-      .sidebar.mobile-open {
-        transform: translateX(0);
-      }
-
-      .sidebar::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      .sidebar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .sidebar::-webkit-scrollbar-thumb {
-        background: #648db3;
-        border-radius: 10px;
-      }
-
-      /* Sembunyikan tombol menu toggle di desktop */
-      .menu-toggle {
-        display: none;
-      }
-
-      /* Tampilkan hanya di layar kecil (mobile) */
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: block;
-          position: fixed;
-          top: 110px;
-          left: 15px;
-          font-size: 24px;
-          background: white;
-          border: none;
-          padding: 8px 12px;
-          border-radius: 8px;
-          cursor: pointer;
-          z-index: 999;
-        }
+        flex: 1;
       }
 
       .menu-item {
         display: flex;
         align-items: center;
-        gap: 15px;
-        padding: 15px 25px;
-        color: #555;
+        gap: 12px;
+        padding: 12px 18px;
+        color: var(--text-grey);
         text-decoration: none;
-        transition: all 0.3s;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 14px;
         cursor: pointer;
-        border-left: 4px solid transparent;
       }
-
-      .menu-item:hover {
-        background: #f0f4f8;
-        color: #648db3;
-      }
-
-      .menu-item.active {
-        background: linear-gradient(
-          90deg,
-          #ecefca 0%,
-          rgba(236, 239, 202, 0.3) 100%
-        );
-        color: #648db3;
-        border-left-color: #648db3;
-        font-weight: 600;
-      }
-
-      .menu-icon {
-        font-size: 22px;
-        min-width: 30px;
+      .menu-item i {
+        width: 24px;
         text-align: center;
+        color: #b0bec5;
+        font-size: 18px;
+        transition: var(--transition);
+      }
+      .menu-item:hover,
+      .menu-item.active {
+        background-color: var(--primary-light);
+        color: var(--primary-main);
+      }
+      .menu-item:hover i,
+      .menu-item.active i {
+        color: var(--primary-main);
+      }
+      .menu-item.active {
+        font-weight: 600;
+        border-left: 4px solid var(--primary-main);
       }
 
-      .menu-text {
-        font-size: 15px;
-        white-space: nowrap;
+      /* --- 2. HEADER STYLE (Atas Tetap) --- */
+      .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        height: var(--header-height);
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary-main)
+        );
+        color: white;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .header-title h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+        letter-spacing: 0.5px;
       }
 
-      /* --- MAIN CONTENT --- */
+      .btn-login {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .btn-login:hover {
+        background: white;
+        color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      /* --- 3. STATS BAR STYLE --- */
+      .stats-bar {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        height: var(--stats-bar-height);
+        background: white;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        border-bottom: 1px solid #edf2f7;
+        z-index: 990;
+        transition: var(--transition);
+      }
+      .stat-mini-item {
+        margin-right: 30px;
+        font-size: 13px;
+        color: var(--text-grey);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .stat-mini-item i {
+        color: var(--primary-main);
+      }
+      .stat-mini-item span {
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      /* --- 4. MAIN CONTENT STYLE --- */
       .main-content {
-        margin-left: 260px;
-        margin-top: 85px;
-        padding: 30px;
-        min-height: calc(100vh - 85px);
-        background: #f7f9fb;
+        margin-left: var(--sidebar-width);
+        margin-top: calc(var(--header-height) + var(--stats-bar-height));
+        padding: 30px 40px;
+        min-height: calc(100vh - 130px);
+        transition: var(--transition);
       }
 
-      /* GRID CARD BOX */
+      /* --- 5. SEJARAH PAGE SPECIFIC STYLES --- */
+      /* Judul Halaman */
+      .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Grid Layout untuk Kartu */
       .tsunami-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
       }
 
-      /* CARD STYLE */
+      /* Tampilan Kartu (Modernized) */
       .tsunami-card {
         background: white;
-        border-radius: 12px;
+        border-radius: 15px;
         overflow: hidden;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: var(--shadow-card);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        display: flex;
+        flex-direction: column;
       }
 
       .tsunami-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 15px 30px rgba(0, 95, 153, 0.1);
       }
 
-      /* IMAGE */
+      /* Gambar pada Kartu */
       .tsunami-card img {
         width: 100%;
-        height: 200px;
+        height: 220px;
         object-fit: cover;
+        transition: transform 0.5s ease;
       }
 
-      /* CARD BODY */
+      .tsunami-card:hover img {
+        transform: scale(1.05); /* Efek zoom in saat hover */
+      }
+
+      /* Konten dalam Kartu */
       .tsunami-card .content {
-        padding: 18px 20px;
+        padding: 25px;
+        flex: 1; /* Agar tinggi kartu seragam */
+        display: flex;
+        flex-direction: column;
       }
 
       .tsunami-card h5 {
-        font-size: 17px;
-        font-weight: 600;
-        color: #2c5282;
-        margin-bottom: 8px;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 12px;
+        line-height: 1.4;
       }
 
       .tsunami-card p {
         font-size: 14px;
-        line-height: 1.6;
-        color: #444;
+        line-height: 1.7;
+        color: #555;
         text-align: justify;
+        flex-grow: 1;
+      }
+
+      /* --- RESPONSIVE MOBILE --- */
+      .mobile-toggle {
+        display: none;
+        font-size: 24px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      @media (max-width: 992px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.active {
+          transform: translateX(0);
+        }
+        .header {
+          left: 0;
+          width: 100%;
+          padding-left: 20px;
+        }
+        .stats-bar {
+          left: 0;
+          width: 100%;
+        }
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+        .mobile-toggle {
+          display: block;
+        }
       }
     </style>
   </head>
 
   <body>
+    <!-- [SIDEBAR] Menu Navigasi Kiri -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img
+          src="assets/logosimbb.png"
+          alt="Logo"
+          class="logo-img"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"
+        />
+        <div class="logo-text">SIMATSU</div>
+      </div>
+
+      <div class="sidebar-menu">
+        <!-- Menu Navigasi dengan Ikon FontAwesome -->
+        <a class="menu-item" href="simb.html">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a class="menu-item" href="data.php">
+          <i class="fa-solid fa-chart-simple"></i> Data Tsunami
+        </a>
+        <!-- [ACTIVE] Menandakan halaman ini sedang aktif -->
+        <a class="menu-item active" href="sejarah.html">
+          <i class="fa-solid fa-clock-rotate-left"></i> Sejarah Kejadian
+        </a>
+        <a class="menu-item" href="penyebab.html">
+          <i class="fa-solid fa-bolt"></i> Penyebab
+        </a>
+        <a class="menu-item" href="dampak.html">
+          <i class="fa-solid fa-triangle-exclamation"></i> Dampak
+        </a>
+        <a class="menu-item" href="mitigasi.html">
+          <i class="fa-solid fa-compass"></i> Mitigasi
+        </a>
+        <a class="menu-item" href="videoedukasi.html">
+          <i class="fa-solid fa-video"></i> Video Edukasi
+        </a>
+        <a class="menu-item" href="peta.html">
+          <i class="fa-solid fa-map-location-dot"></i> Peta Sebaran
+        </a>
+      </div>
+    </div>
+
+    <!-- [HEADER] Bagian Atas Halaman -->
     <div class="header">
       <div class="header-content">
         <div class="header-left">
-          <div
-            class="logo"
-            style="display: flex; align-items: center; gap: 10px"
-          >
-            <img
-              src="assets/logosimbb.png"
-              alt="Logo SIMATSU"
-              style="height: 50px; width: auto"
-            />
-            <span style="font-weight: 700; color: #ecefca; font-size: 28px"
-              >SIMATSU</span
-            >
-          </div>
+          <!-- Tombol Hamburger untuk Mobile -->
+          <i
+            class="fa-solid fa-bars mobile-toggle"
+            onclick="document.getElementById('sidebar').classList.toggle('active')"
+          ></i>
           <div class="header-title">
             <h1>Sistem Informasi Manajemen Tsunami</h1>
             <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
           </div>
         </div>
-        <div class="header-right">
-          <a href="loginadmin.php"
-            ><button class="btn-login btn-admin">🧑‍💼 Login Admin</button></a
-          >
-        </div>
+        <a href="loginadmin.php" class="btn-login">
+          <i class="fa-solid fa-user-lock"></i> Login Admin
+        </a>
       </div>
     </div>
 
-    <div class="sidebar" id="sidebar">
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <a class="menu-item" href="simb.html">
-        <span class="menu-icon">🏠</span>
-        <span class="menu-text">Dashboard</span>
-      </a>
-      <a class="menu-item" href="data.php">
-        <span class="menu-icon">📊</span>
-        <span class="menu-text">Data Tsunami</span>
-      </a>
-      <a class="menu-item active" href="sejarah.html">
-        <span class="menu-icon">📜</span>
-        <span class="menu-text">Sejarah Kejadian</span>
-      </a>
-      <a class="menu-item" href="penyebab.html">
-        <span class="menu-icon">⚡</span>
-        <span class="menu-text">Penyebab</span>
-      </a>
-      <a class="menu-item" href="dampak.html">
-        <span class="menu-icon">🚨</span>
-        <span class="menu-text">Dampak</span>
-      </a>
-      <a class="menu-item" href="mitigasi.html">
-        <span class="menu-icon">🧭</span>
-        <span class="menu-text">Mitigasi</span>
-      </a>
-      <a class="menu-item" href="videoedukasi.html">
-        <span class="menu-icon">🎥</span>
-        <span class="menu-text">Video Edukasi</span>
-      </a>
-      <a class="menu-item" onclick="showPage('peta')">
-        <span class="menu-icon">🗺</span>
-        <span class="menu-text">Peta Sebaran</span>
-      </a>
+    <!-- [STATS BAR] Baris informasi statistik kecil -->
+    <div class="stats-bar">
+      <div class="stat-mini-item">
+        <i class="fa-solid fa-users"></i>
+        Pengunjung: <span>12,547</span>
+      </div>
+      <div class="stat-mini-item">
+        <i class="fa-solid fa-newspaper"></i>
+        Artikel: <span>287</span>
+      </div>
     </div>
+
+    <!-- [MAIN CONTENT] Konten Utama Halaman Sejarah -->
     <div class="main-content">
-      <h2 style="margin-bottom: 20px; color: #2c5282">
+      <!-- Judul Bagian -->
+      <h2 class="page-title">
+        <i class="fa-solid fa-clock-rotate-left"></i>
         Sejarah Kejadian Tsunami di Dunia
       </h2>
 
+      <!-- [GRID] Grid Layout untuk Kartu Sejarah -->
       <div class="tsunami-grid">
+        <!-- Kartu 1: Palu -->
         <div class="tsunami-card">
-          <img src="assets/palu.jpg" alt="tsunami palu" />
+          <!-- Wrapper gambar agar bisa di-zoom saat hover -->
+          <div style="overflow: hidden">
+            <img src="assets/palu.jpg" alt="tsunami palu" />
+          </div>
           <div class="content">
             <h5>Tsunami Palu & Donggala, Indonesia (2018)</h5>
             <p>
@@ -336,8 +456,11 @@
           </div>
         </div>
 
+        <!-- Kartu 2: Aceh -->
         <div class="tsunami-card">
-          <img src="assets/aceh.jpg" alt="tsunami aceh" />
+          <div style="overflow: hidden">
+            <img src="assets/aceh.jpg" alt="tsunami aceh" />
+          </div>
           <div class="content">
             <h5>Tsunami Aceh, Indonesia (2004)</h5>
             <p>
@@ -351,8 +474,11 @@
           </div>
         </div>
 
+        <!-- Kartu 3: Jepang -->
         <div class="tsunami-card">
-          <img src="assets/jepang.jpg" alt="tsunami jepang" />
+          <div style="overflow: hidden">
+            <img src="assets/jepang.jpg" alt="tsunami jepang" />
+          </div>
           <div class="content">
             <h5>Tsunami Pulau Honshu, Jepang (2011)</h5>
             <p>
@@ -364,8 +490,11 @@
           </div>
         </div>
 
+        <!-- Kartu 4: Selat Sunda -->
         <div class="tsunami-card">
-          <img src="assets/selatsunda.jpg" alt="tsunami selat sunda" />
+          <div style="overflow: hidden">
+            <img src="assets/selatsunda.jpg" alt="tsunami selat sunda" />
+          </div>
           <div class="content">
             <h5>Tsunami Selat Sunda (2018)</h5>
             <p>

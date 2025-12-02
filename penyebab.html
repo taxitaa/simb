@@ -1,385 +1,577 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
+    <!-- 
+      [META DATA]
+      Pengaturan viewport dan encoding standar.
+    -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMATSU - Penyebab Tsunami</title>
 
+    <!-- [FONTS] Menggunakan Google Fonts Poppins -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
+    <!-- [ICONS] Font Awesome untuk ikon modern -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- [LIBRARY] Leaflet CSS (Disiapkan jika nanti ada peta di halaman ini) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
     />
 
     <style>
+      /* =================================================================
+         BAGIAN CSS (TAMPILAN MODERN & KONSISTEN)
+         Menggunakan variabel CSS agar warna dan ukuran seragam di seluruh aplikasi.
+      ================================================================= */
+
+      :root {
+        /* Palet Warna Biru Laut Modern */
+        --primary-dark: #005f99;
+        --primary-main: #0088cc;
+        --primary-light: #e0f7fa;
+        --accent: #ffd700; /* Warna aksen kuning emas */
+
+        /* Warna Teks & Background */
+        --text-dark: #2c3e50;
+        --text-grey: #607d8b;
+        --bg-body: #f4f9fc;
+
+        /* Efek Bayangan */
+        --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --shadow-hover: 0 15px 30px rgba(0, 95, 153, 0.15);
+
+        /* Dimensi Layout */
+        --sidebar-width: 260px;
+        --header-height: 80px;
+        --stats-bar-height: 50px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
         font-family: "Poppins", sans-serif;
-        background: #f5f7fa;
-        color: #333;
+        background-color: var(--bg-body);
+        color: var(--text-dark);
+        overflow-x: hidden;
       }
 
-      /* --- HEADER STYLES --- */
-      .header {
-        background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
-        color: white;
-        padding: 20px 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-      }
-
-      .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1600px;
-        margin: 0 auto;
-      }
-
-      .header-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-
-      .logo {
-        font-size: 28px;
-        font-weight: 700;
-        color: #ecefca;
-      }
-
-      .header-title h1 {
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 5px;
-      }
-
-      .header-title p {
-        font-size: 12px;
-        opacity: 0.9;
-        font-weight: 300;
-      }
-
-      .header-right {
-        display: flex;
-        gap: 15px;
-      }
-
-      .btn-login {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .btn-pimpinan {
-        background: #2c5282;
-        color: white;
-      }
-
-      .btn-admin {
-        background: #ecefca;
-        color: #648db3;
-      }
-
-      /* --- SIDEBAR STYLES --- */
+      /* --- 1. SIDEBAR STYLE (Menu Kiri) --- */
       .sidebar {
         position: fixed;
         left: 0;
-        top: 80px;
-        width: 260px;
-        height: calc(100vh - 95px);
+        top: 0;
+        bottom: 0;
+        width: var(--sidebar-width);
         background: white;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        padding: 20px 0;
+        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
+        z-index: 1002;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+      }
+      .sidebar-logo {
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .logo-img {
+        height: 40px;
+        width: auto;
+        margin-right: 12px;
+      }
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary-main);
+        letter-spacing: -1px;
+      }
+      .sidebar-menu {
+        padding: 20px 15px;
         overflow-y: auto;
-        z-index: 998;
-        transition: all 0.3s;
-      }
-
-      .sidebar.mobile-open {
-        transform: translateX(0);
-      }
-
-      .sidebar::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      .sidebar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .sidebar::-webkit-scrollbar-thumb {
-        background: #648db3;
-        border-radius: 10px;
-      }
-
-      /* Sembunyikan tombol menu toggle di desktop */
-      .menu-toggle {
-        display: none;
-      }
-
-      /* Tampilkan hanya di layar kecil (mobile) */
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: block;
-          position: fixed;
-          top: 110px;
-          left: 15px;
-          font-size: 24px;
-          background: white;
-          border: none;
-          padding: 8px 12px;
-          border-radius: 8px;
-          cursor: pointer;
-          z-index: 999;
-        }
+        flex: 1;
       }
 
       .menu-item {
         display: flex;
         align-items: center;
-        gap: 15px;
-        padding: 15px 25px;
-        color: #555;
+        gap: 12px;
+        padding: 12px 18px;
+        color: var(--text-grey);
         text-decoration: none;
-        transition: all 0.3s;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 14px;
         cursor: pointer;
-        border-left: 4px solid transparent;
       }
-
-      .menu-item:hover {
-        background: #f0f4f8;
-        color: #648db3;
-      }
-
-      .menu-item.active {
-        background: linear-gradient(
-          90deg,
-          #ecefca 0%,
-          rgba(236, 239, 202, 0.3) 100%
-        );
-        color: #648db3;
-        border-left-color: #648db3;
-        font-weight: 600;
-      }
-
-      .menu-icon {
-        font-size: 22px;
-        min-width: 30px;
+      .menu-item i {
+        width: 24px;
         text-align: center;
+        color: #b0bec5;
+        font-size: 18px;
+        transition: var(--transition);
+      }
+      .menu-item:hover,
+      .menu-item.active {
+        background-color: var(--primary-light);
+        color: var(--primary-main);
+      }
+      .menu-item:hover i,
+      .menu-item.active i {
+        color: var(--primary-main);
+      }
+      .menu-item.active {
+        font-weight: 600;
+        border-left: 4px solid var(--primary-main);
       }
 
-      .menu-text {
-        font-size: 15px;
-        white-space: nowrap;
+      /* --- 2. HEADER STYLE (Menu Atas) --- */
+      .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        height: var(--header-height);
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary-main)
+        );
+        color: white;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .header-title h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+        letter-spacing: 0.5px;
       }
 
-      /* --- MAIN CONTENT (Hanya sebagai container) --- */
+      .btn-login {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .btn-login:hover {
+        background: white;
+        color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      /* --- 3. STATS BAR STYLE --- */
+      .stats-bar {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        height: var(--stats-bar-height);
+        background: white;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        border-bottom: 1px solid #edf2f7;
+        z-index: 990;
+        transition: var(--transition);
+      }
+      .stat-mini-item {
+        margin-right: 30px;
+        font-size: 13px;
+        color: var(--text-grey);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .stat-mini-item i {
+        color: var(--primary-main);
+      }
+      .stat-mini-item span {
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      /* --- 4. MAIN CONTENT STYLE --- */
       .main-content {
-        margin-left: 260px;
-        margin-top: 85px;
-        min-height: calc(100vh - 85px);
-        padding: 30px;
+        margin-left: var(--sidebar-width);
+        margin-top: calc(var(--header-height) + var(--stats-bar-height));
+        padding: 30px 40px;
+        min-height: calc(100vh - 130px);
+        transition: var(--transition);
       }
 
-      /* Gaya untuk Container Penyebab */
+      /* --- 5. PAGE SPECIFIC STYLES (PENYEBAB) --- */
+
+      /* Judul dengan Ikon */
+      .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Deskripsi Pengantar */
+      .intro-text {
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 35px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid var(--accent);
+        box-shadow: var(--shadow-card);
+      }
+
+      /* Grid Layout */
+      .cause-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      /* Kartu Penyebab (Desain Diperbarui) */
       .cause-card {
         background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        border-top: 5px solid #648db3;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        /* Dekorasi Bawah */
+        border-bottom: 4px solid var(--primary-main);
+        position: relative;
       }
 
-      /* Gaya baru untuk gambar di dalam kartu penyebab */
+      /* Efek Hover: Kartu naik sedikit & border bawah berubah warna */
+      .cause-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+        border-bottom-color: var(--accent);
+      }
+
+      /* Wrapper Gambar */
+      .image-wrapper {
+        height: 180px;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        background-color: #f0f4f8; /* Placeholder color */
+      }
+
       .cause-image {
         width: 100%;
-        /* Memastikan gambar memenuhi lebar kartu */
-        height: 150px;
-        /* Tinggi tetap */
+        height: 100%;
         object-fit: cover;
-        /* Memastikan gambar tidak terdistorsi */
-        border-radius: 8px;
-        margin-bottom: 15px;
-        /* Tambahkan placeholder visual */
-        background-color: #f0f4f8;
-        display: block;
+        transition: transform 0.5s ease;
       }
 
-      .cause-card h3 {
-        margin-top: 0;
-        /* Menghilangkan margin atas default h3 */
+      /* Efek Zoom Gambar saat Hover */
+      .cause-card:hover .cause-image {
+        transform: scale(1.1);
+      }
+
+      /* Konten Teks */
+      .card-content {
+        padding: 25px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-content h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 12px;
+      }
+
+      .card-content p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+
+      /* Ikon Overlay Kecil di Gambar (Hiasan Tambahan) */
+      .icon-overlay {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-main);
+        font-size: 18px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* --- RESPONSIVE MOBILE --- */
+      .mobile-toggle {
+        display: none;
+        font-size: 24px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      @media (max-width: 992px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.active {
+          transform: translateX(0);
+        }
+        .header {
+          left: 0;
+          width: 100%;
+          padding-left: 20px;
+        }
+        .stats-bar {
+          left: 0;
+          width: 100%;
+        }
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+        .mobile-toggle {
+          display: block;
+        }
       }
     </style>
   </head>
 
   <body>
+    <!-- [SIDEBAR] Menu Navigasi Kiri -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img
+          src="assets/logosimbb.png"
+          alt="Logo"
+          class="logo-img"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"
+        />
+        <div class="logo-text">SIMATSU</div>
+      </div>
+
+      <div class="sidebar-menu">
+        <a class="menu-item" href="simb.html">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a class="menu-item" href="data.php">
+          <i class="fa-solid fa-chart-simple"></i> Data Tsunami
+        </a>
+        <a class="menu-item" href="sejarah.html">
+          <i class="fa-solid fa-clock-rotate-left"></i> Sejarah Kejadian
+        </a>
+        <!-- [ACTIVE] Halaman Saat Ini -->
+        <a class="menu-item active" href="penyebab.html">
+          <i class="fa-solid fa-bolt"></i> Penyebab
+        </a>
+        <a class="menu-item" href="dampak.html">
+          <i class="fa-solid fa-triangle-exclamation"></i> Dampak
+        </a>
+        <a class="menu-item" href="mitigasi.html">
+          <i class="fa-solid fa-compass"></i> Mitigasi
+        </a>
+        <a class="menu-item" href="videoedukasi.html">
+          <i class="fa-solid fa-video"></i> Video Edukasi
+        </a>
+        <a class="menu-item" href="peta.html">
+          <i class="fa-solid fa-map-location-dot"></i> Peta Sebaran
+        </a>
+      </div>
+    </div>
+
+    <!-- [HEADER] Bagian Atas -->
     <div class="header">
       <div class="header-content">
         <div class="header-left">
-          <div
-            class="logo"
-            style="display: flex; align-items: center; gap: 10px"
-          >
-            <img
-              src="assets/logosimbb.png"
-              alt="Logo SIMATSU"
-              style="height: 50px; width: auto"
-            />
-            <span style="font-weight: 700; color: #ecefca; font-size: 28px"
-              >SIMATSU</span
-            >
-          </div>
+          <i
+            class="fa-solid fa-bars mobile-toggle"
+            onclick="document.getElementById('sidebar').classList.toggle('active')"
+          ></i>
           <div class="header-title">
             <h1>Sistem Informasi Manajemen Tsunami</h1>
             <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
           </div>
         </div>
-        <div class="header-right">
-          <a href="loginadmin.php"
-            ><button class="btn-login btn-admin">🧑‍💼 Login Admin</button></a
-          >
-        </div>
+        <a href="loginadmin.php" class="btn-login">
+          <i class="fa-solid fa-user-lock"></i> Login Admin
+        </a>
       </div>
     </div>
 
-    <div class="sidebar" id="sidebar">
-      <a class="menu-item" href="simb.html">
-        <span class="menu-icon">🏠</span>
-        <span class="menu-text">Dashboard</span>
-      </a>
-      <a class="menu-item" href="data.php">
-        <span class="menu-icon">📊</span>
-        <span class="menu-text">Data Tsunami</span>
-      </a>
-      <a class="menu-item" href="sejarah.html">
-        <span class="menu-icon">📜</span>
-        <span class="menu-text">Sejarah Kejadian</span>
-      </a>
-      <a class="menu-item active" href="penyebab.html">
-        <span class="menu-icon">⚡</span>
-        <span class="menu-text">Penyebab</span>
-      </a>
-      <a class="menu-item" href="dampak.html">
-        <span class="menu-icon">🚨</span>
-        <span class="menu-text">Dampak</span>
-      </a>
-      <a class="menu-item" href="mitigasi.html">
-        <span class="menu-icon">🧭</span>
-        <span class="menu-text">Mitigasi</span>
-      </a>
-      <a class="menu-item" href="videoedukasi.html">
-        <span class="menu-icon">🎥</span>
-        <span class="menu-text">Video Edukasi</span>
-      </a>
-      <a class="menu-item">
-        <span class="menu-icon">🗺</span>
-        <span class="menu-text">Peta Sebaran</span>
-      </a>
+    <!-- [STATS BAR] Statistik Kecil -->
+    <div class="stats-bar">
+      <div class="stat-mini-item">
+        <i class="fa-solid fa-users"></i>
+        Pengunjung: <span>12,547</span>
+      </div>
+      <div class="stat-mini-item">
+        <i class="fa-solid fa-newspaper"></i>
+        Artikel: <span>287</span>
+      </div>
     </div>
 
-    <div class="main-content" id="mainContent">
-      <h2 style="color: #2c5282; margin-bottom: 20px">
+    <!-- [MAIN CONTENT] Konten Utama -->
+    <div class="main-content">
+      <!-- Judul Halaman -->
+      <h2 class="page-title">
+        <i class="fa-solid fa-circle-exclamation"></i>
         Penyebab Utama Terjadinya Tsunami
       </h2>
-      <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
-        Tsunami dapat dipicu oleh berbagai fenomena alam yang menyebabkan
-        perpindahan air laut secara vertikal dan mendadak. Memahami penyebabnya
-        penting untuk sistem peringatan dini.
-      </p>
 
-      <div
-        style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 25px;
-        "
-      >
+      <!-- Pengantar -->
+      <div class="intro-text">
+        <p>
+          Tsunami dapat dipicu oleh berbagai fenomena alam yang menyebabkan
+          perpindahan air laut secara vertikal dan mendadak. Memahami
+          penyebabnya sangat penting untuk meningkatkan kewaspadaan dan sistem
+          peringatan dini.
+        </p>
+      </div>
+
+      <!-- Grid Kartu Penyebab -->
+      <div class="cause-grid">
+        <!-- Kartu 1: Longsor -->
         <div class="cause-card">
-          <img
-            src="assets/longsor.webp"
-            alt="Ilustrasi Longsor Bawah Laut"
-            class="cause-image"
-          />
-          <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-            Longsor Bawah Laut
-          </h4>
-          <p style="font-size: 14px; color: #666">
-            Runtuhan material di lereng dasar laut menyebabkan perubahan
-            mendadak pada dasar laut, sehingga air di atasnya ikut terdorong
-            atau tersedot.
-          </p>
+          <div class="image-wrapper">
+            <img
+              src="assets/longsor.webp"
+              alt="Ilustrasi Longsor Bawah Laut"
+              class="cause-image"
+            />
+            <!-- Ikon Hiasan -->
+            <div class="icon-overlay">
+              <i class="fa-solid fa-hill-rockslide"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <h4>Longsor Bawah Laut</h4>
+            <p>
+              Runtuhan material di lereng dasar laut menyebabkan perubahan
+              mendadak pada dasar laut, sehingga air di atasnya ikut terdorong
+              atau tersedot, memicu gelombang besar.
+            </p>
+          </div>
         </div>
 
+        <!-- Kartu 2: Gunung Berapi -->
         <div class="cause-card">
-          <img
-            src="assets/gunung.jpg"
-            alt="ilustrasi Letusan Gunung Berapi Bawah Laut"
-            alt="Ilustrasi Letusan Gunung Berapi Bawah Laut"
-            class="cause-image"
-          />
-
-          <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-            Letusan Gunung Berapi Bawah Laut
-          </h4>
-          <p style="font-size: 14px; color: #666">
-            Letusan kuat dapat memicu pergerakan atau tanah longsor di dasar
-            laut sehingga bisa mengganggu keseimbangan air laut dan memicu
-            gelombang tsunami.
-          </p>
+          <div class="image-wrapper">
+            <img
+              src="assets/gunung.jpg"
+              alt="Ilustrasi Letusan Gunung Berapi Bawah Laut"
+              class="cause-image"
+            />
+            <div class="icon-overlay"><i class="fa-solid fa-volcano"></i></div>
+          </div>
+          <div class="card-content">
+            <h4>Letusan Gunung Berapi Bawah Laut</h4>
+            <p>
+              Letusan kuat dapat memicu pergerakan atau tanah longsor di dasar
+              laut sehingga bisa mengganggu keseimbangan air laut dan memicu
+              gelombang tsunami yang dahsyat.
+            </p>
+          </div>
         </div>
 
+        <!-- Kartu 3: Gempa Tektonik -->
         <div class="cause-card">
-          <img
-            src="assets/gempa.png"
-            alt="Ilustrasi Gempa Bumi Tektonik Bawah Laut"
-            class="cause-image"
-          />
-
-          <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-            Gempa Bumi Teknonik
-          </h4>
-          <p style="font-size: 14px; color: #666">
-            Gempa bumi yang terjadi karena pergeseran lempeng bumi di bawah laut
-            menyebabkan dasar laut naik atau turun secara vertikal, memindahkan
-            volume air yang besar.
-          </p>
+          <div class="image-wrapper">
+            <img
+              src="assets/gempa.png"
+              alt="Ilustrasi Gempa Bumi Tektonik Bawah Laut"
+              class="cause-image"
+            />
+            <div class="icon-overlay">
+              <i class="fa-solid fa-house-crack"></i>
+            </div>
+          </div>
+          <div class="card-content">
+            <h4>Gempa Bumi Tektonik</h4>
+            <p>
+              Gempa bumi yang terjadi karena pergeseran lempeng bumi di bawah
+              laut menyebabkan dasar laut naik atau turun secara vertikal,
+              memindahkan volume air yang sangat besar seketika.
+            </p>
+          </div>
         </div>
 
+        <!-- Kartu 4: Benda Langit -->
         <div class="cause-card">
-          <img
-            src="assets/benda.jpg"
-            alt="Ilustrasi Benda Langit Jatuh ke Laut"
-            class="cause-image"
-          />
-
-          <h4 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-            Benda Langit yang Jatuh ke Laut
-          </h4>
-          <p style="font-size: 14px; color: #666">
-            Benda langit seperti meteor atau komet jatuh ke laut. Jika ukurannya
-            besar, ia akan menimbulkan ledakan besar dan gelombang kejut yang
-            menghasilkan tsunami.
-          </p>
+          <div class="image-wrapper">
+            <img
+              src="assets/benda.jpg"
+              alt="Ilustrasi Benda Langit Jatuh ke Laut"
+              class="cause-image"
+            />
+            <div class="icon-overlay"><i class="fa-solid fa-meteor"></i></div>
+          </div>
+          <div class="card-content">
+            <h4>Benda Langit Jatuh ke Laut</h4>
+            <p>
+              Benda langit seperti meteor atau komet jatuh ke laut. Jika
+              ukurannya besar, ia akan menimbulkan ledakan besar dan gelombang
+              kejut yang menghasilkan tsunami masif (Sangat jarang terjadi).
+            </p>
+          </div>
         </div>
       </div>
     </div>

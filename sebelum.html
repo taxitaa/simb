@@ -1,366 +1,599 @@
 <!DOCTYPE html>
 <html lang="id">
+  <head>
+    <!-- 
+      [META DATA]
+      Viewport settings agar tampilan rapi di HP dan Laptop.
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIMATSU - Langkah Sebelum Tsunami</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIMATSU - Mitigasi Tsunami</title>
+    <!-- [FONTS] Google Fonts Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
+    <!-- [ICONS] Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <!-- [LIBRARY] Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    />
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+      /* =================================================================
+         BAGIAN CSS (MODERN THEME)
+         Base style konsisten, dengan aksen khusus fase "Sebelum".
+      ================================================================= */
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      :root {
+        /* Warna Utama */
+        --primary-dark: #005f99;
+        --primary-main: #0088cc;
+        --primary-light: #e0f7fa;
+        --accent: #ffd700;
 
-    body {
-      font-family: "Poppins", sans-serif;
-      background: #f5f7fa;
-      color: #333;
-    }
+        /* Warna Khusus Halaman Ini (Preparation/Info) */
+        --prep-color: #0088cc; /* Biru Persiapan */
 
-    /* --- HEADER STYLES --- */
-    .header {
-      background: linear-gradient(135deg, #648db3 0%, #5a7fa0 100%);
-      color: white;
-      padding: 20px 30px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
+        /* Tipografi & Background */
+        --text-dark: #2c3e50;
+        --text-grey: #607d8b;
+        --bg-body: #f4f9fc;
 
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
+        /* Bayangan */
+        --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --shadow-hover: 0 15px 30px rgba(0, 136, 204, 0.15); /* Bayangan biru halus */
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 700;
-      color: #ecefca;
-    }
-
-    .header-title h1 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .header-title p {
-      font-size: 12px;
-      opacity: 0.9;
-      font-weight: 300;
-    }
-
-    .header-right {
-      display: flex;
-      gap: 15px;
-    }
-
-    .btn-login {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-pimpinan {
-      background: #2c5282;
-      color: white;
-    }
-
-    .btn-admin {
-      background: #ecefca;
-      color: #648db3;
-    }
-
-    /* --- SIDEBAR STYLES --- */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 80px;
-      width: 260px;
-      height: calc(100vh - 95px);
-      background: white;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-      padding: 20px 0;
-      overflow-y: auto;
-      z-index: 998;
-      transition: all 0.3s;
-    }
-
-    .sidebar.mobile-open {
-      transform: translateX(0);
-    }
-
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background: #648db3;
-      border-radius: 10px;
-    }
-
-    /* Sembunyikan tombol menu toggle di desktop */
-    .menu-toggle {
-      display: none;
-    }
-
-    /* Tampilkan hanya di layar kecil (mobile) */
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 110px;
-        left: 15px;
-        font-size: 24px;
-        background: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        z-index: 999;
+        /* Layout */
+        --sidebar-width: 260px;
+        --header-height: 80px;
+        --stats-bar-height: 50px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
-    }
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-dark);
+        overflow-x: hidden;
+      }
 
-    .menu-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 15px 25px;
-      color: #555;
-      text-decoration: none;
-      transition: all 0.3s;
-      cursor: pointer;
-      border-left: 4px solid transparent;
-    }
+      /* --- 1. SIDEBAR STYLE --- */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: var(--sidebar-width);
+        background: white;
+        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
+        z-index: 1002;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+      }
+      .sidebar-logo {
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .logo-img {
+        height: 40px;
+        width: auto;
+        margin-right: 12px;
+      }
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary-main);
+        letter-spacing: -1px;
+      }
+      .sidebar-menu {
+        padding: 20px 15px;
+        overflow-y: auto;
+        flex: 1;
+      }
 
-    .menu-item:hover {
-      background: #f0f4f8;
-      color: #648db3;
-    }
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 18px;
+        color: var(--text-grey);
+        text-decoration: none;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .menu-item i {
+        width: 24px;
+        text-align: center;
+        color: #b0bec5;
+        font-size: 18px;
+        transition: var(--transition);
+      }
+      .menu-item:hover,
+      .menu-item.active {
+        background-color: var(--primary-light);
+        color: var(--primary-main);
+      }
+      .menu-item:hover i,
+      .menu-item.active i {
+        color: var(--primary-main);
+      }
+      /* Active menu di Mitigasi */
+      .menu-item.active {
+        font-weight: 600;
+        border-left: 4px solid var(--primary-main);
+      }
 
-    .menu-item.active {
-      background: linear-gradient(90deg,
-          #ecefca 0%,
-          rgba(236, 239, 202, 0.3) 100%);
-      color: #648db3;
-      border-left-color: #648db3;
-      font-weight: 600;
-    }
+      /* --- 2. HEADER STYLE --- */
+      .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        height: var(--header-height);
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary-main)
+        );
+        color: white;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .header-title h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .header-title p {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+      }
 
-    .menu-icon {
-      font-size: 22px;
-      min-width: 30px;
-      text-align: center;
-    }
+      .btn-login {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .btn-login:hover {
+        background: white;
+        color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
 
-    .menu-text {
-      font-size: 15px;
-      white-space: nowrap;
-    }
+      /* --- 3. STATS BAR STYLE --- */
+      .stats-bar {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+        height: var(--stats-bar-height);
+        background: white;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        border-bottom: 1px solid #edf2f7;
+        z-index: 990;
+        transition: var(--transition);
+      }
+      .stat-mini-item {
+        margin-right: 30px;
+        font-size: 13px;
+        color: var(--text-grey);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .stat-mini-item i {
+        color: var(--primary-main);
+      }
+      .stat-mini-item span {
+        font-weight: 700;
+        color: var(--text-dark);
+      }
 
-    /* --- MAIN CONTENT (Hanya sebagai container) --- */
-    .main-content {
-      margin-left: 260px;
-      margin-top: 85px;
-      min-height: calc(100vh - 85px);
-      padding: 30px;
-    }
+      /* --- 4. MAIN CONTENT STYLE --- */
+      .main-content {
+        margin-left: var(--sidebar-width);
+        margin-top: calc(var(--header-height) + var(--stats-bar-height));
+        padding: 30px 40px;
+        min-height: calc(100vh - 130px);
+        transition: var(--transition);
+      }
 
-    /* Gaya untuk Container Penyebab */
-    .cause-card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border-top: 5px solid #648db3;
-    }
+      /* --- 5. PAGE SPECIFIC (SEBELUM TERJADI) --- */
 
-    /* Gaya baru untuk gambar di dalam kartu penyebab */
-    .cause-image {
-      width: 100%;
-      /* Memastikan gambar memenuhi lebar kartu */
-      height: 150px;
-      /* Tinggi tetap */
-      object-fit: cover;
-      /* Memastikan gambar tidak terdistorsi */
-      border-radius: 8px;
-      margin-bottom: 15px;
-      /* Tambahkan placeholder visual */
-      background-color: #f0f4f8;
-      display: block;
-    }
+      /* Judul Halaman */
+      .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .page-title i {
+        color: var(--prep-color);
+        font-size: 28px;
+      }
 
-    .cause-card h3 {
-      margin-top: 0;
-      /* Menghilangkan margin atas default h3 */
-    }
-  </style>
-</head>
+      /* Breadcrumb Navigation */
+      .breadcrumb {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+      .breadcrumb a {
+        text-decoration: none;
+        color: var(--primary-main);
+        font-weight: 600;
+      }
 
-<body>
-  <div class="header">
-    <div class="header-content">
-      <div class="header-left">
-        <div
-            class="logo"
-            style="display: flex; align-items: center; gap: 10px"
-          >
-            <img
-              src="assets/logosimbb.png"
-              alt="Logo SIMATSU"
-              style="height: 50px; width: auto"
-            />
-            <span style="font-weight: 700; color: #ecefca; font-size: 28px"
-              >SIMATSU</span
-            >
+      /* Intro Text Box */
+      .intro-text {
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid var(--prep-color);
+        box-shadow: var(--shadow-card);
+      }
+
+      /* Grid Layout */
+      .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      /* Kartu Persiapan (Preparation Card) */
+      .prep-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        border-top: 4px solid var(--prep-color); /* Aksen Biru */
+        position: relative;
+      }
+
+      .prep-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* Gambar */
+      .image-wrapper {
+        height: 180px;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        background-color: #f0f4f8;
+      }
+
+      .prep-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .prep-card:hover .prep-image {
+        transform: scale(1.1);
+      }
+
+      /* Ikon Overlay Biru */
+      .info-icon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--prep-color);
+        font-size: 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Konten Teks */
+      .card-content {
+        padding: 25px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-content h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--prep-color);
+        margin-bottom: 12px;
+      }
+
+      .card-content p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+
+      /* Responsive Mobile */
+      .mobile-toggle {
+        display: none;
+        font-size: 24px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      @media (max-width: 992px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.active {
+          transform: translateX(0);
+        }
+        .header {
+          left: 0;
+          width: 100%;
+          padding-left: 20px;
+        }
+        .stats-bar {
+          left: 0;
+          width: 100%;
+        }
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+        .mobile-toggle {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- [SIDEBAR] Menu Navigasi -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img
+          src="assets/logosimbb.png"
+          alt="Logo"
+          class="logo-img"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"
+        />
+        <div class="logo-text">SIMATSU</div>
+      </div>
+
+      <div class="sidebar-menu">
+        <a class="menu-item" href="simb.html">
+          <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a class="menu-item" href="data.php">
+          <i class="fa-solid fa-chart-simple"></i> Data Tsunami
+        </a>
+        <a class="menu-item" href="sejarah.html">
+          <i class="fa-solid fa-clock-rotate-left"></i> Sejarah Kejadian
+        </a>
+        <a class="menu-item" href="penyebab.html">
+          <i class="fa-solid fa-bolt"></i> Penyebab
+        </a>
+        <a class="menu-item" href="dampak.html">
+          <i class="fa-solid fa-triangle-exclamation"></i> Dampak
+        </a>
+        <!-- [ACTIVE] Induk Halaman -->
+        <a class="menu-item active" href="mitigasi.html">
+          <i class="fa-solid fa-compass"></i> Mitigasi
+        </a>
+        <a class="menu-item" href="videoedukasi.html">
+          <i class="fa-solid fa-video"></i> Video Edukasi
+        </a>
+        <a class="menu-item" href="peta.html">
+          <i class="fa-solid fa-map-location-dot"></i> Peta Sebaran
+        </a>
+      </div>
+    </div>
+
+    <!-- [HEADER] -->
+    <div class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <i
+            class="fa-solid fa-bars mobile-toggle"
+            onclick="document.getElementById('sidebar').classList.toggle('active')"
+          ></i>
+          <div class="header-title">
+            <h1>Sistem Informasi Manajemen Tsunami</h1>
+            <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
           </div>
-        <div class="header-title">
-          <h1>Sistem Informasi Manajemen Tsunami</h1>
-          <p>Mengenali, Mencegah, dan Mengurangi Risiko Bencana</p>
         </div>
-      </div>
-      <div class="header-right">
-        <button class="btn-login btn-admin">🧑‍💼 Login Admin</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="sidebar" id="sidebar">
-    <a class="menu-item" href="simb.html">
-      <span class="menu-icon">🏠</span>
-      <span class="menu-text">Dashboard</span>
-    </a>
-    <a class="menu-item">
-      <span class="menu-icon">📊</span>
-      <span class="menu-text">Data Tsunami</span>
-    </a>
-    <a class="menu-item" href="sejarah.html">
-      <span class="menu-icon">📜</span>
-      <span class="menu-text">Sejarah Kejadian</span>
-    </a>
-    <a class="menu-item" href="penyebab.html">
-      <span class="menu-icon">⚡</span>
-      <span class="menu-text">Penyebab</span>
-    </a>
-    <a class="menu-item" href="dampak.html">
-      <span class="menu-icon">🚨</span>
-      <span class="menu-text">Dampak</span>
-    </a>
-    <a class="menu-item active" href="mitigasi.html">
-      <span class="menu-icon">🧭</span>
-      <span class="menu-text">Mitigasi</span>
-    </a>
-    <a class="menu-item" href="videoedukasi.html">
-      <span class="menu-icon">🎥</span>
-      <span class="menu-text">Video Edukasi</span>
-    </a>
-    <a class="menu-item" href="peta.html">
-      <span class="menu-icon">🗺</span>
-      <span class="menu-text">Peta Sebaran</span>
-    </a>
-  </div>
-
-<!--CONTENT-->
-  <div class="main-content" id="mainContent">
-    <div>
-        <h3 style="color: #2c5282; margin-bottom: 20px">
-      Sebelum Terjadinya Tsunami
-    </h3>
-    <p style="color: #555; line-height: 1.6; margin-bottom: 30px">
-      Persiapan dan pencegahan sebelum tsunami terjadi bertujuan untuk mengurangi risiko dan dampak bencana. Langkah ini mencakup peningkatan kesadaran masyarakat, penyusunan rencana evakuasi, serta pemahaman terhadap prosedur tanggap darurat agar masyarakat dapat bertindak cepat dan tepat saat terjadi ancaman tsunami.
-    </p>
-    <div style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 25px;
-        ">
-      <div class="cause-card">
-        <img src="assets/tandatsunami.jpg" alt="Ilustrasi tanda tanda tsunami"
-          class="cause-image" />
-
-        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-          Ketahui tanda-tanda peringatan tsunami
-        </h3>
-        <p style="font-size: 14px; color: #666">
-          naik atau turunnya air pantai dengan cepat, gemuruh keras dari laut, atau gemuruh gempa bumi
-        </p>
-      </div>
-
-      <div class="cause-card">
-        <img src="assets/pusatresmi.jpg" alt="ilustrasi pusat informasi resmi"
-          alt="Ilustrasi pusat resmi informasi" class="cause-image" />
-
-        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-          Mengetahui pusat informasi dan Sistem peringatan dini
-        </h3>
-        <p style="font-size: 14px; color: #666">
-          BPBD, BMKG, PVMBG dan instansi lainnya. Sirene, SMS broadcast, radio/TOA.
-        </p>
-      </div>
-
-      <div class="cause-card">
-        <img src="assets/peta.jpg" alt="Ilustrasi pemetaan rute"
-          class="cause-image" />
-
-        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-          Pemetaan rute evakuasi
-        </h3>
-        <p style="font-size: 14px; color: #666">
-          Mengenali tempat tempat di sekitar daerah tersebut
-Menyusun jalur/rute evakuasi resmi beserta penanda, titik kumpul, dan lokasi tempat tinggi/aman.
-        </p>
-      </div>
-
-      <div class="cause-card">
-        <img src="assets/sosialisasi.jpg" alt="Ilustrasi Sosialiasi"
-          class="cause-image" />
-
-        <h3 style="font-size: 20px; color: #2c5282; margin-bottom: 10px">
-          Sosialiasi dan Edukasi kepada masyarakat
-        </h3>
-        <p style="font-size: 14px; color: #666">
-          Mengedukasi masyarakat tentang tanda-tanda tsunami
-Sosialisasi secara rutin
-        </p>
+        <a href="loginadmin.php" class="btn-login">
+          <i class="fa-solid fa-user-lock"></i> Login Admin
+        </a>
       </div>
     </div>
+
+    <!-- [STATS BAR] -->
+    <div class="stats-bar">
+      <div class="stat-mini-item">
+        <i class="fa-solid fa-users"></i>
+        Pengunjung: <span>12,547</span>
+      </div>
+      <div class="stat-mini-item">
+        <i class="fa-solid fa-newspaper"></i>
+        Artikel: <span>287</span>
+      </div>
     </div>
 
+    <!-- [MAIN CONTENT] -->
+    <div class="main-content">
+      <!-- Navigasi Balik -->
+      <div class="breadcrumb">
+        <a href="mitigasi.html"
+          ><i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Mitigasi</a
+        >
+        <span style="margin: 0 10px">/</span>
+        <span>Sebelum Terjadi</span>
+      </div>
+
+      <!-- Judul Halaman -->
+      <h2 class="page-title">
+        <i class="fa-solid fa-clipboard-check"></i>
+        Langkah Persiapan: Sebelum Terjadi Tsunami
+      </h2>
+
+      <!-- Deskripsi -->
+      <div class="intro-text">
+        <p>
+          Persiapan dan pencegahan sebelum tsunami terjadi bertujuan untuk
+          mengurangi risiko dan dampak bencana. Langkah ini mencakup peningkatan
+          kesadaran masyarakat, penyusunan rencana evakuasi, serta pemahaman
+          terhadap prosedur tanggap darurat agar masyarakat siap siaga.
+        </p>
+      </div>
+
+      <!-- Grid Kartu Informasi -->
+      <div class="action-grid">
+        <!-- Kartu 1: Tanda Alam -->
+        <div class="prep-card">
+          <div class="image-wrapper">
+            <img
+              src="assets/tandatsunami.jpg"
+              alt="Ilustrasi tanda tsunami"
+              class="prep-image"
+            />
+            <div class="info-icon"><i class="fa-solid fa-eye"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Kenali Tanda Alam</h3>
+            <p>
+              Waspadai tanda-tanda alam seperti gempa bumi kuat atau berdurasi
+              lama, air laut yang surut secara tiba-tiba dan drastis, serta
+              suara gemuruh keras dari arah laut.
+            </p>
+          </div>
         </div>
 
-  </div>
-</body>
+        <!-- Kartu 2: Pusat Informasi -->
+        <div class="prep-card">
+          <div class="image-wrapper">
+            <img
+              src="assets/pusatresmi.jpg"
+              alt="Ilustrasi pusat informasi"
+              class="prep-image"
+            />
+            <div class="info-icon"><i class="fa-solid fa-bullhorn"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Sistem Peringatan Dini</h3>
+            <p>
+              Ketahui sumber informasi resmi seperti BMKG, BPBD, atau PVMBG.
+              Pahami cara kerja sirene tsunami, peringatan via radio/TV, dan SMS
+              broadcast.
+            </p>
+          </div>
+        </div>
 
+        <!-- Kartu 3: Rute Evakuasi -->
+        <div class="prep-card">
+          <div class="image-wrapper">
+            <img
+              src="assets/peta.jpg"
+              alt="Ilustrasi peta evakuasi"
+              class="prep-image"
+            />
+            <div class="info-icon"><i class="fa-solid fa-route"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Pahami Rute Evakuasi</h3>
+            <p>
+              Kenali lingkungan sekitar Anda. Ketahui jalur evakuasi resmi,
+              lokasi Titik Kumpul (Assembly Point), dan tempat tinggi yang aman
+              (Shelter/Bukit) terdekat dari rumah/kantor.
+            </p>
+          </div>
+        </div>
+
+        <!-- Kartu 4: Sosialisasi -->
+        <div class="prep-card">
+          <div class="image-wrapper">
+            <img
+              src="assets/sosialisasi.jpg"
+              alt="Ilustrasi sosialisasi"
+              class="prep-image"
+            />
+            <div class="info-icon"><i class="fa-solid fa-users-rays"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Edukasi & Simulasi</h3>
+            <p>
+              Ikuti kegiatan sosialisasi bencana dan simulasi evakuasi secara
+              rutin. Diskusikan rencana darurat bersama keluarga (Tas Siaga
+              Bencana, kontak darurat).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
