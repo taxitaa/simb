@@ -1,8 +1,4 @@
 <?php
-// =================================================================
-// BAGIAN BACKEND (PHP)
-// =================================================================
-
 // [DATABASE] Memanggil file koneksi agar terhubung ke database MySQL
 include 'koneksi.php'; 
 
@@ -171,11 +167,6 @@ if (!$json_jumlah) $json_jumlah = '[]'; // Jaga-jaga jika kosong
   </head>
 
   <body>
-    <!-- 
-      [DATA BRIDGE]
-      Input tersembunyi ini berfungsi sebagai 'jembatan' untuk mengirim data dari PHP ke JavaScript.
-      Value-nya diisi oleh PHP (echo), lalu nanti diambil oleh JavaScript di bawah.
-    -->
     <input type="hidden" id="dataTahun" value='<?php echo $json_tahun; ?>'>
     <input type="hidden" id="dataJumlah" value='<?php echo $json_jumlah; ?>'>
 
